@@ -1,15 +1,20 @@
+﻿import os
 import telebot
-import os
+from dotenv import load_dotenv
 
-# Tokenni .env fayldan o'qish
-TOKEN = os.getenv('TOKEN')
+# .env faylini yuklaymiz
+load_dotenv()
 
-bot = telebot.TeleBot(TOKEN)
+# Tokenni olamiz
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# /start buyrug‘iga javob
+# Botni ishga tushuramiz
+bot = telebot.TeleBot(BOT_TOKEN)
+
+# /start buyrug'iga javob
 @bot.message_handler(commands=['start'])
-def welcome(message):
-    bot.reply_to(message, "Assalomu alaykum! Kushon Medical Servis laboratoriyasi botiga xush kelibsiz!")
+def start_message(message):
+    bot.send_message(message.chat.id, "Assalomu alaykum! Kushon Medical Servis laboratoriya botiga xush kelibsiz!")
 
-# Botni ishlatish
+# Botni doimiy holatda ishlashga qo'yamiz
 bot.infinity_polling()
