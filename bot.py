@@ -1,19 +1,19 @@
 
-import logging
-from telegram import Update
+from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-TOKEN = os.getenv("BOT_TOKEN")
+# Tugmalar
+main_menu = [['Test guruhlari'], ['Biz haqimizda', 'Admin bilan bogʻlanish'], ['Chiqish']]
 
-logging.basicConfig(level=logging.INFO)
-
+# /start komandasi
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Assalomu alaykum! Kushon Medical Servis botiga xush kelibsiz!")
+    await update.message.reply_text(
+        "Assalomu alaykum! Kushon Medical Servis botiga xush kelibsiz!",
+        reply_markup=ReplyKeyboardMarkup(main_menu, resize_keyboard=True)
+    )
 
-if __name__ == "__main__":
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.run_polling()
+app = ApplicationBuilder().token("TOKENINGIZNI_BU_YERGA_QO'YING").build()
+app.add_handler(CommandHandler("start", start))
+
+print("Bot ishga tushdi.")
+app.run_polling()
