@@ -1,17 +1,19 @@
-import os
+
+import logging
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from dotenv import load_dotenv
+import os
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Assalomu alaykum! Kushon Medical Servis laboratoriyasining rasmiy botiga xush kelibsiz.')
+load_dotenv()
+TOKEN = os.getenv("BOT_TOKEN")
 
-def main():
-    TOKEN = os.getenv("BOT_TOKEN")
-    updater = Updater(TOKEN)
-    dispatcher = updater.dispatcher
-    dispatcher.add_handler(CommandHandler("start", start))
-    updater.start_polling()
-    updater.idle()
+logging.basicConfig(level=logging.INFO)
 
-if __name__ == '__main__':
-    main()
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Assalomu alaykum! Kushon Medical Servis botiga xush kelibsiz!")
+
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.run_polling()
