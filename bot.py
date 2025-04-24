@@ -1,20 +1,19 @@
-﻿import os
-import telebot
+
+import logging
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from dotenv import load_dotenv
+import os
 
-# .env faylini yuklaymiz
 load_dotenv()
+TOKEN = os.getenv("BOT_TOKEN")
 
-# Tokenni olamiz
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+logging.basicConfig(level=logging.INFO)
 
-# Botni ishga tushuramiz
-bot = telebot.TeleBot(BOT_TOKEN)
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Assalomu alaykum! Kushon Medical Servis botiga xush kelibsiz!")
 
-# /start buyrug'iga javob
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    bot.send_message(message.chat.id, "Assalomu alaykum! Kushon Medical Servis laboratoriya botiga xush kelibsiz!")
-
-# Botni doimiy holatda ishlashga qo'yamiz
-bot.infinity_polling()
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.run_polling()
