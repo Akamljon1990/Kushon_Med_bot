@@ -53,7 +53,7 @@ if __name__ == "__main__":
     # .env faylidan TOKEN o'zgaruvchisini o'qish
     token = os.getenv("TOKEN")
     if not token:
-        raise RuntimeError("TOKEN=7810717425:AAEV3cs6L1DoVMJaPkQfVgjBH22V4DH9U0Q")
+        raise RuntimeError("Bot token not found. Please set the TOKEN in the environment.")
     # Bot ilovasini yaratish
     app = ApplicationBuilder().token(token).build()
     # Handler (ishlovchi) larni ro‘yxatdan o‘tkazish
