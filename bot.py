@@ -8,13 +8,6 @@ main_menu = ReplyKeyboardMarkup([
     ["📷 Instagram sahifamiz", "💬 Taklif va shikoyat"],
     ["🩸 Qon topshirishga tayyorgarlik", "🧬 IXLA va IFA farqi"]
 ], resize_keyboard=True)
-# Asosiy menyu (start uchun)
-main_menu = ReplyKeyboardMarkup([
-    ["🧪 Tahlillar", "📄 Tahlil natijalari"],
-    ["📞 Biz bilan bog‘lanish", "👨‍💼 Admin bilan muloqot"],
-    ["📷 Instagram sahifamiz", "💬 Taklif va shikoyat"],
-    ["🩸 Qon topshirishga tayyorgarlik", "🧬 IXLA va IFA farqi"]
-], resize_keyboard=True)
 
 # Tahlillar menyusi (test guruhlari uchun)
 tahlillar_menu = InlineKeyboardMarkup([
