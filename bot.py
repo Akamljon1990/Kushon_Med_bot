@@ -140,7 +140,7 @@ hormone_info = {
 "Noradrenalin": "🔬 Noradrenalin\n➔ Norma: 70–750 pg/mL\n📈 Oshganda: Stress holati\n⚡ Belgilar: Qon bosimining oshishi.\n🕒 Tekshirish: Stress va gipertoniya tekshiruvlarida.",
 "Thyroglobulin": "🔬 Tireoglobulin\n➔ Norma: 1.4–78 ng/mL\n📈 Oshganda: Qalqonsimon bez saratoni\n⚡ Belgilar: Qalqonsimon bez kasalliklari belgisi.\n🕒 Tekshirish: Qalqonsimon bez monitoringi.",
 "Catecholamines": "🔬 Katexolaminlar\n➔ Norma: Ma’lum bir chegarada\n📈 Oshganda: Feoxromositoma\n⚡ Belgilar: Yurak urishining tezlashishi, hipertoniya.\n🕒 Tekshirish: Adrenal bez kasalliklarida.",
-"Plazma Metanefrin": "🔬 Plazma Metanefrin\n➔ Norma: <0.5 nmol/L\n📈 Oshganda: Feoxromositoma shubhasida\n⚡ Belgilar: Qon bosimi o‘zgarishi, yurak urishining tezlashishi.\n🕒 Tekshirish: Adrenal bez o‘smasini aniqlash uchun."
+"Plazma Metanefrin": "🔬 Plazma Metanefrin\n➔ Norma: <0.5 nmol/L\n📈 Oshganda: Feoxromositoma shubhasida\n⚡ Belgilar: Qon bosimi o‘zgarishi, yurak urishining tezlashishi.\n🕒 Tekshirish: Adrenal bez o‘smasini aniqlash uchun.",
 }
 
 
