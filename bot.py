@@ -1028,6 +1028,5 @@ hormone_info = {
                   "- Ruhiy bezovtalik\n\n"
                   "⏰ Qachon tekshirish kerak:\n"
                   "- Feokromositoma tashxisida\n"
-                  "- Stress va adrenal buzilishlar baholashda"
-
+                  "- Stress va adrenal buzilishlar baholashda",
 }
