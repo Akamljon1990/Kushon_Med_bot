@@ -91,6 +91,30 @@ def main():
 
     print("✅ Bot ishga tushdi...")
     app.run_polling()
-
-if __name__ == "__main__":
-    main()
+# Har bir gormon haqida to'liq ma'lumot
+hormone_info = {
+    "TSH": "🔬 TSH (Qalqonsimon bez stimulyator gormoni)\n"
+           "➔ Norma: 0.27 – 4.2 mIU/L\n\n"
+           "📈 Oshganda:\n"
+           "- Gipotiroidizm (qalqonsimon bez faoliyatining pasayishi)\n"
+           "- Hashimoto tireoiditi (autoimmun kasallik)\n"
+           "- Qalqonsimon bezni jarrohlik yoki radiatsiya bilan olib tashlash\n\n"
+           "📉 Kamayganda:\n"
+           "- Gipertiroidizm (qalqonsimon bez faoliyatining ortishi)\n"
+           "- Graves kasalligi (autoimmun gipertiroidizm)\n"
+           "- Nodular toksik zob\n\n"
+           "⚡ Organizmdagi belgilar:\n"
+           "- Holsizlik va tez charchash\n"
+           "- Sovuqqa sezuvchanlik\n"
+           "- Vazn ortishi yoki kamayishi\n"
+           "- Ruhiy tushkunlik\n"
+           "- Yurak urishining buzilishi (sekin yoki tez)\n"
+           "- Tana haroratining pasayishi yoki ko‘tarilishi\n"
+           "- Teri qurishi va soch to‘kilishi\n\n"
+           "⏰ Qachon tekshirish kerak:\n"
+           "- Charchoq va kuchsizlik\n"
+           "- Qorinning shishishi yoki vazn ortishi\n"
+           "- Sovuqqa sezuvchanlik kuchayganda\n"
+           "- Hayz siklining buzilishi\n"
+           "- Homiladorlikda qalqonsimon bezni nazorat qilishda"
+}
