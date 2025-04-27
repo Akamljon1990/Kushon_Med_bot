@@ -9,55 +9,80 @@ main_menu_keyboard = [
     ["IXLA va IFA farqi", "Biz bilan bog'lanish"],
     ["Tahlil natijalari", "Taklif va shikoyatlar"],
     ["Kitob (testlar haqida)", "Foydalanuvchi qo'shish"],
-    ["Organizmda qanday o'zgarish?"],
+    ["Organizmda qanday o'zgarish?"]
 ]
 main_menu = ReplyKeyboardMarkup(main_menu_keyboard, resize_keyboard=True)
 
-# Start komandasi
+# Gormonlar ro'yxati
+hormone_buttons = [
+    "TSH", "FT4", "FT3", "Prolaktin", "Estradiol", "Testosteron", "LH", "FSH", "Progesteron", "AMH",
+    "Insulin", "C_peptid", "ACTH", "Kortizol", "PTH", "Vitamin_D", "HCG", "DHEA_S", "IGF_1", "Aldosteron",
+    "Renin", "Androstenedion", "Adiponektin", "Ghrelin", "Leptin", "Beta-hCG", "Calcitonin", "Somatotropin",
+    "Proinsulin", "SHBG", "17-OH Progesteron", "Anti-TPO", "Anti-Tg", "FSH/LH nisbati", "Insulin Resistence",
+    "Melatonin", "Parathormon", "Free Estriol", "Inhibin B", "Mullerian Inhibiting Substance", "Oxytocin",
+    "Relaxin", "Vasopressin", "Kisspeptin", "Adrenalin", "Noradrenalin", "Thyroglobulin", "Catecholamines",
+    "Plazma Metanefrin"
+]
+hormone_keyboard = [[InlineKeyboardButton(text, callback_data=text)] for text in hormone_buttons]
+hormone_menu = InlineKeyboardMarkup(hormone_keyboard)
+
+# Har bir gormon haqida ma'lumot (Hozircha TSH va FT4, keyin barchasini to‘ldirib beraman)
+hormone_info = {
+    "TSH": "🔬 TSH (Qalqonsimon bez stimulyator gormoni)\n➔ Norma: 0.27 – 4.2 mIU/L\n📈 Oshganda: Gipotiroidizm\n📉 Kamayganda: Gipertiroidizm\n⚡ Belgilar: Holsizlik, sovuqqa sezuvchanlik, vazn ortishi.\n🕒 Tekshirish: Holsizlik va qalqonsimon bez kasalliklari belgilari.",
+    "FT4": "🔬 FT4 (Erkin Tiroksin)\n➔ Norma: 0.93 – 1.7 ng/dL\n📈 Oshganda: Gipertiroidizm\n📉 Kamayganda: Gipotiroidizm\n⚡ Belgilar: Yurak urishining tezlashishi, vazn kamayishi.\n🕒 Tekshirish: Qalqonsimon bez faoliyati shubhasida."
+}
+
+# /start komandasi
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Assalomu alaykum! Kushon Medical Servis laboratoriyasi botiga xush kelibsiz!\n\nSiz biz bilan quyidagilarni amalga oshirishingiz mumkin:",
+        "Assalomu alaykum! Kushon Medical Servis laboratoriyasi botiga xush kelibsiz!\n\nMenyudan kerakli bo'limni tanlang:",
         reply_markup=main_menu
     )
 
-# Tugma ishlovchi
+# Menyudagi tugmalarni ishlovchi
 async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
     if text == "Tahlillar haqida":
-        await update.message.reply_text("Tahlillar guruhlari: Gormonlar, TORCH, Onkomarkerlar, Vitaminlar va boshqalar...")
+        await update.message.reply_text("Gormonlar ro'yxati:", reply_markup=hormone_menu)
     elif text == "Qon topshirish qoidalari":
-        await update.message.reply_text("Qon topshirishdan oldin 8-12 soat och qoling, ertalab soat 7:00-10:00 oralig'ida topshirish tavsiya etiladi.")
+        await update.message.reply_text("Qon topshirishdan oldin 8-12 soat och qolish tavsiya etiladi. Ertalab soat 7-10 oralig'ida.")
     elif text == "Bioximik tahlillar":
-        await update.message.reply_text("Bioximik tahlillar ro'yxati: Glukoza, Kreatinin, AST, ALT, Bilirubin va boshqalar...")
+        await update.message.reply_text("Bioximik tahlillar: Glukoza, Kreatinin, AST, ALT, Bilirubin va boshqalar.")
     elif text == "Klinik tahlillar":
-        await update.message.reply_text("Umumiy qon tahlili va umumiy siydik tahlili haqida ma'lumot.")
+        await update.message.reply_text("Klinik tahlillar: Umumiy qon tahlili va siydik tahlili haqida.")
     elif text == "IXLA va IFA farqi":
-        await update.message.reply_text("IXLA (Immunoximiolyuminestsent) tekshiruv zamonaviy va aniq. IFA esa eskiroq texnika hisoblanadi.")
+        await update.message.reply_text("IXLA zamonaviy va aniq, IFA esa nisbatan eski texnologiya.")
     elif text == "Biz bilan bog'lanish":
-        await update.message.reply_text("Biz bilan bog'lanish:\n📍 Kosonsoy tumani, Kattalar poliklinikasi yonida\n📞 +998 90 741 72 22\n📧 Akmaljon.19@bk.ru\n📷 Instagram: @akmal.jon7222\n💬 Telegram: @Akmaljon_lab")
+        await update.message.reply_text("Manzil: Kosonsoy tumani, Poliklinika yonida.\nTelefon: +998907417222\nInstagram: @akmal.jon7222\nTelegram: @Akmaljon_lab\nEmail: Akmaljon.19@bk.ru")
     elif text == "Tahlil natijalari":
-        await update.message.reply_text("ID raqamingizni yuboring, biz sizning tahlil natijalaringizni tekshirib beramiz.")
+        await update.message.reply_text("ID raqamingizni yuboring.")
     elif text == "Taklif va shikoyatlar":
-        await update.message.reply_text("Taklif va shikoyatlaringizni yozing, biz ularni adminga yetkazamiz.")
+        await update.message.reply_text("Taklif va shikoyatlaringizni yozib yuboring.")
     elif text == "Kitob (testlar haqida)":
-        await update.message.reply_text("📚 Testlar haqida to'liq ma'lumot (Kitob) pullik. Narxi: 45 000 so'm.\nAdmin bilan bog'lanish: @Akmaljon_lab")
+        await update.message.reply_text("📚 Testlar haqida kitob pullik! Narxi: 45 000 so'm.\nAdmin bilan bog'laning: @Akmaljon_lab")
     elif text == "Foydalanuvchi qo'shish":
-        await update.message.reply_text("✅ Siz muvaffaqiyatli ro'yxatdan o'tdingiz!\nDo'stlaringizga ham botni ulashing: https://t.me/YOUR_BOT_USERNAME")
+        await update.message.reply_text("✅ Ro'yxatdan o'tdingiz! Botni do'stlaringizga tavsiya qiling.")
     elif text == "Organizmda qanday o'zgarish?":
-        await update.message.reply_text("📋 Organizmingizdagi o'zgarish yoki shikoyatingizni yozing. Biz sizga qaysi tahlillar kerakligini tavsiya qilamiz.")
+        await update.message.reply_text("📋 Organizmingizdagi o'zgarish yoki shikoyatni yozing, biz sizga mos tahlillarni tavsiya qilamiz.")
     else:
-        await update.message.reply_text("Iltimos, menyudan kerakli bo'limni tanlang.")
+        await update.message.reply_text("Iltimos, menyudan tanlang.")
 
-# Callback funksiyasi (Inline tugmalar uchun kerak bo'lsa)
+# Inline tugmalar ishlovchi
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("Bu yerda inline tugmalar uchun alohida ishlovchi bo'lishi mumkin.")
+    info = hormone_info.get(query.data)
+    if info:
+        await query.edit_message_text(info)
+    else:
+        await query.edit_message_text("Bu test haqida ma'lumot hali tayyor emas.")
 
 # Main funksiyasi
 def main():
     token = os.getenv("TOKEN")
+    if not token:
+        raise RuntimeError("Bot token topilmadi. Iltimos, .env faylga TOKEN kiriting.")
     app = ApplicationBuilder().token(token).build()
 
     app.add_handler(CommandHandler("start", start))
