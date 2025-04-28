@@ -84,7 +84,6 @@ hormone_info.update({
     ),
 # hormone_part2.py
 # 18–34 gormon ma'lumotlari
-hormone_info.update({
     "SHBG (Sex Hormone Binding Globulin)": (
         "📊 Norma: erkaklar 10–57 nmol/L, ayollar 18–144 nmol/L\n"
         "🔻 Kamaysa: insulin rezistentlikda\n"
@@ -194,8 +193,6 @@ hormone_info.update({
         "📈 Follikulyar fazada aniqlanadi\n"
     ),
 # hormone_part3.py
-# 35–50 gormon ma'lumotlari
-hormone_info.update({
     "IGFBP-3": (
         "📊 Norma: yosh va jinsga qarab farq qiladi\n"
         "🔻 Kamaysa: o‘sish buzilishi\n"
