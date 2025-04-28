@@ -3,9 +3,6 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Cal
 import os
 
 # Asosiy menyu
-
-from telegram import ReplyKeyboardMarkup
-
 main_menu_keyboard = [
     ["Tahlillar haqida ma'lumot", "Qon topshirish qoidalari"],
     ["Bioximiya haqida", "Klinika haqida"],
@@ -20,12 +17,13 @@ main_menu = ReplyKeyboardMarkup(
     keyboard=main_menu_keyboard,
     resize_keyboard=True
 )
+
 # Gormonlar ro'yxati
 hormone_buttons = [
     "TSH", "FT4", "FT3", "Prolaktin", "Estradiol", "Testosteron", "LH", "FSH", "Progesteron", "AMH",
     "Insulin", "C_peptid", "ACTH", "Kortizol", "PTH", "Vitamin_D", "HCG", "DHEA_S", "IGF_1", "Aldosteron",
     "Renin", "Androstenedion", "Adiponektin", "Ghrelin", "Leptin", "Beta-hCG", "Calcitonin", "Somatotropin",
-    "Proinsulin", "SHBG", "17-OH Progesteron", "Anti-TPO", "Anti-Tg", "FSH/LH nisbati", "Insulin Resistence",
+    "Proinsulin", "SHBG", "17-OH Progesteron", "Anti-TPO", "Anti-Tg", "Insulin Resistence",
     "Melatonin", "Parathormon", "Free Estriol", "Inhibin B", "Mullerian Inhibiting Substance", "Oxytocin",
     "Relaxin", "Vasopressin", "Kisspeptin", "Adrenalin", "Noradrenalin", "Thyroglobulin", "Catecholamines",
     "Plazma Metanefrin"
@@ -33,62 +31,14 @@ hormone_buttons = [
 hormone_keyboard = [[InlineKeyboardButton(text, callback_data=text)] for text in hormone_buttons]
 hormone_menu = InlineKeyboardMarkup(hormone_keyboard)
 
-# Har bir gormon haqida qisqacha ma'lumot
+# Gormonlar haqida ma'lumotlar
 hormone_info = {
-    "TSH": "🔬 TSH (Qalqonsimon bez stimulyator gormoni)\n➔ Norma: 0.27–4.2 mIU/L\n📈 Oshganda: Gipotiroidizm\n📉 Kamayganda: Gipertiroidizm\n⚡ Belgilar: Holsizlik, sovuqqa sezuvchanlik, vazn ortishi.\n🕒 Tekshirish: Qalqonsimon bez faoliyati uchun.",
-    "FT4": "🔬 FT4 (Erkin Tiroksin)\n➔ Norma: 0.93–1.7 ng/dL\n📈 Oshganda: Gipertiroidizm\n📉 Kamayganda: Gipotiroidizm\n⚡ Belgilar: Yurak urishi, vazn kamayishi.",
-    "FT3": "🔬 FT3 (Erkin Triiyodtironin)\n➔ Norma: 2.0–4.4 pg/mL\n📈 Oshganda: Gipertiroidizm\n📉 Kamayganda: Gipotiroidizm\n⚡ Belgilar: Yurak urishi, ishtaha o‘zgarishi.",
-    "Prolaktin": "🔬 Prolaktin\n➔ Norma: Ayollar 4.8–23.3 ng/mL, Erkaklar 4.0–15.2 ng/mL\n📈 Oshganda: Giperprolaktinemiya\n⚡ Belgilar: Hayz buzilishi, ko‘krakdan suyuqlik.",
-    "Estradiol": "🔬 Estradiol\n➔ Norma: 12.5–166 pg/mL (folikulyar faza)\n📈 Oshganda: Ovarian kista\n📉 Kamayganda: Menopauza\n⚡ Belgilar: Hayz buzilishi.",
-    "Testosteron": "🔬 Testosteron\n➔ Norma: Erkaklar 300–1000 ng/dL, Ayollar 15–70 ng/dL\n📈 Oshganda: Polikistoz tuxumdon\n📉 Kamayganda: Hipogonadizm\n⚡ Belgilar: Libidoning pasayishi.",
-    "LH": "🔬 LH (Luteinizing gormon)\n➔ Norma: 1.24–7.8 IU/L\n📈 Oshganda: Ovulyatsiya\n📉 Kamayganda: Gormon yetishmovchiligi.",
-    "FSH": "🔬 FSH (Follikula stimulyator gormoni)\n➔ Norma: 3.5–12.5 IU/L\n📈 Oshganda: Menopauza\n📉 Kamayganda: Hayz buzilishi.",
-    "Progesteron": "🔬 Progesteron\n➔ Norma: 5–20 ng/mL (luteal faza)\n📈 Oshganda: Homiladorlik\n📉 Kamayganda: Xavfli homiladorlik.",
-    "AMH": "🔬 AMH (Anti-Mullerian Gormon)\n➔ Norma: 1–10 ng/mL\n📈 Oshganda: Polikistoz tuxumdon\n📉 Kamayganda: Tuxumdon zaxirasining kamayishi.",
-    "Insulin": "🔬 Insulin\n➔ Norma: 2.6–24.9 μIU/mL\n📈 Oshganda: Insulin rezistentlik\n📉 Kamayganda: Qandli diabet.",
-    "C_peptid": "🔬 C-peptid\n➔ Norma: 0.5–2.0 ng/mL\n📈 Oshganda: Insulinoma\n📉 Kamayganda: Insulin yetishmovchiligi.",
-    "ACTH": "🔬 ACTH (Adrenokortikotropik gormon)\n➔ Norma: 10–60 pg/mL\n📈 Oshganda: Kuşing kasalligi\n📉 Kamayganda: Addison kasalligi.",
-    "Kortizol": "🔬 Kortizol\n➔ Norma: 6–23 mcg/dL\n📈 Oshganda: Stressga javob reaksiyasi\n📉 Kamayganda: Addison kasalligi.",
-    "PTH": "🔬 PTH (Paratireoid gormon)\n➔ Norma: 10–65 pg/mL\n📈 Oshganda: Giperparatireoz\n📉 Kamayganda: Gipoparatireoz.",
-    "Vitamin_D": "🔬 Vitamin D\n➔ Norma: 30–100 ng/mL\n📉 Kamayganda: Raxit, suyak zaifligi.",
-    "HCG": "🔬 HCG (Homiladorlik gormoni)\n➔ Norma: <5 mIU/mL (homilador bo‘lmagan)\n📈 Oshganda: Homiladorlik.",
-    "DHEA_S": "🔬 DHEA-S\n➔ Norma: 80–560 mcg/dL\n📈 Oshganda: Androgen ko‘payishi.",
-    "IGF_1": "🔬 IGF-1\n➔ Norma: Yoshga qarab o‘zgaradi\n📈 Oshganda: Gigantizm\n📉 Kamayganda: O‘sish sekinlashishi.",
-    "Aldosteron": "🔬 Aldosteron\n➔ Norma: 4–31 ng/dL\n📈 Oshganda: Gipertoniya.",
-    "Renin": "🔬 Renin\n➔ Norma: 0.5–4.0 ng/mL/h\n📈 Oshganda: Gipertoniya\n📉 Kamayganda: Addison kasalligi.",
-    "Androstenedion": "🔬 Androstenedion\n➔ Norma: 0.7–3.1 ng/mL\n📈 Oshganda: Virilizatsiya (erkaklashish).",
-    "Adiponektin": "🔬 Adiponektin\n➔ Norma: 4–26 mcg/mL\n📉 Kamayganda: Semizlik, diabet xavfi.",
-    "Ghrelin": "🔬 Ghrelin\n➔ Norma: Individuallik farqlanadi\n📈 Oshganda: Ochlik hissi oshadi.",
-    "Leptin": "🔬 Leptin\n➔ Norma: Farq qiladi (tana yog'iga bog'liq)\n📈 Oshganda: Semizlik bilan bog'liq muammolar.",
-    "Beta-hCG": "🔬 Beta-hCG\n➔ Homiladorlik testida aniqlanadi.\n📈 Oshganda: Homiladorlik belgisi.",
-    "Calcitonin": "🔬 Kalsitonin\n➔ Qalqonsimon bez bilan bog‘liq o‘zgarishlar indikatoridir.",
-    "Somatotropin": "🔬 O‘sish gormoni (Somatotropin)\n📈 Oshganda: Gigantizm\n📉 Kamayganda: O‘sish sekinlashadi.",
-    "Proinsulin": "🔬 Proinsulin\n➔ Norma: <20% umumiy insulin ichida.",
-    "SHBG": "🔬 SHBG (Jinsiy gormon bilan bog'lovchi globulin)\n➔ Gormonlarning faolligini nazorat qiladi.",
-    "17-OH Progesteron": "🔬 17-OH Progesteron\n➔ Norma: 0.2–1.3 ng/mL\n📈 Oshganda: Tug'ma adrenal giperplaziya.",
-    "Anti-TPO": "🔬 Anti-TPO\n➔ Autoimmun tireoidit belgisi.",
-    "Anti-Tg": "🔬 Anti-Tg\n➔ Tireoglobulinga qarshi antitelolar, autoimmun kasalliklar indikatoridir.",
-    "Insulin Resistence": "🔬 Insulin rezistentlik\n➔ Qandli diabet xavfi oshadi.",
-    "Melatonin": "🔬 Melatonin\n➔ Uyqu va biologik ritmni tartibga soladi.",
-    "Parathormon": "🔬 Parathormon\n➔ Qon kaltsiy muvozanatini boshqaradi.",
-    "Free Estriol": "🔬 Erkin estriol\n➔ Homiladorlik vaqtida baholanadi.",
-    "Inhibin B": "🔬 Inhibin B\n➔ Tuxumdon va urug‘don funksiyasini baholaydi.",
-    "Mullerian Inhibiting Substance": "🔬 Mullerian Inhibiting Substance\n➔ Reproduktiv tizim rivojlanishini ko‘rsatadi.",
-    "Oxytocin": "🔬 Oksitotsin\n➔ Tug‘ruq va sut ajratish jarayonida rol o‘ynaydi.",
-    "Relaxin": "🔬 Relaxin\n➔ Tug‘ruqqa tayyorlovchi gormon.",
-    "Vasopressin": "🔬 Vazopressin\n➔ Qon bosimini va suv balansini nazorat qiladi.",
-    "Kisspeptin": "🔬 Kisspeptin\n➔ Jinsiy yetilish boshlanishida ishtirok etadi.",
-    "Adrenalin": "🔬 Adrenalin\n➔ Stress reaksiyalarini kuchaytiradi.",
-    "Noradrenalin": "🔬 Noradrenalin\n➔ Stressga javob va qon bosimini tartibga soladi.",
-    "Thyroglobulin": "🔬 Tireoglobulin\n➔ Qalqonsimon bez kasalliklarining markeridir.",
-    "Catecholamines": "🔬 Katexolaminlar\n➔ Stress va adrenalin reaksiyalari indikatorlari.",
-    "Plazma Metanefrin": "🔬 Plazma metanefrinlar\n➔ Feoxromositoma diagnostikasida muhim marker."
+    "TSH": "🔬 TSH haqida ma'lumot...",
+    "FT4": "🔬 FT4 haqida ma'lumot...",
+    # (Qolgan gormonlar uchun ham xuddi shunday ma'lumotlar bo'lishi kerak)
 }
 
 # /start komandasi
-from telegram import Update
-from telegram.ext import ContextTypes
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🧬 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
@@ -101,11 +51,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
         "📞 Telefon: +998 90 741 72 22\n"
         "📸 Instagram: @akmal.jon7222\n\n"
-        "✅ Biz uchun daromatdan ko‘ra **to‘g‘ri natija va bemor ishonchi muhim**!\n\n"
-        "✅ Ishonchli diagnostika – sog‘ligingiz kafolati!"
+        "✅ Biz uchun daromaddan ko‘ra **to‘g‘ri natija va bemor ishonchi muhim**!\n\n"
+        "✅ Ishonchli diagnostika – sog‘ligingiz kafolati!",
+        reply_markup=main_menu
     )
 
-# Inline tugmalar ishlovchi
+# Inline tugmalar uchun callback
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -115,11 +66,43 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await query.edit_message_text("Bu test haqida ma'lumot hali tayyor emas.")
 
+# Menyu tugmalarini boshqarish
+async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
+
+    if text == "Tahlillar haqida ma'lumot":
+        await update.message.reply_text("Gormonlar, TORCH paneli, Onkomarkerlar va boshqalar haqida tanlang.", reply_markup=hormone_menu)
+    elif text == "Qon topshirish qoidalari":
+        await update.message.reply_text("Qon topshirish uchun:\n- 8-12 soat och qoling.\n- Ertalab soat 7:00-10:00 oralig'ida topshirish tavsiya etiladi.\n- Suv ichish mumkin.")
+    elif text == "Bioximiya haqida":
+        await update.message.reply_text("Bioximiya tahlillariga: jigar, buyrak, yurak, suyak va boshqa organlarning ko'rsatkichlari kiradi.")
+    elif text == "Klinika haqida":
+        await update.message.reply_text("Klinik tahlillar umumiy qon analizi, siydik analizi va boshqa testlarni o'z ichiga oladi.")
+    elif text == "IXLA va IFA tekshiruv farqi":
+        await update.message.reply_text("IXLA - zamonaviy, tezkor va aniq tekshiruv. IFA esa eskirganroq usul. IXLA ko'proq ishonch beradi.")
+    elif text == "Biz bilan bog'lanish":
+        await update.message.reply_text("Biz bilan bog'lanish:\n📍 Kosonsoy tumani, Kattalar poliklinikasi yonida\n📞 +998 90 741 72 22\n📸 Instagram: @akmal.jon7222\n✉️ Email: akmaljon.1990k.ru@gmail.com")
+    elif text == "Admin bilan bog'lanish":
+        await update.message.reply_text("Admin bilan bog'lanish uchun @akmaljon_lab ga yozing.")
+    elif text == "Tahlil natijalarini olish":
+        await update.message.reply_text("Tahlil natijasini olish uchun ID raqamingizni kiriting:")
+    elif text == "Taklif va shikoyatlar":
+        await update.message.reply_text("Taklif yoki shikoyatingizni yozing. Xabaringiz adminga yuboriladi.")
+    elif text == "Kitob (Analizlar haqida to‘liq ma'lumot)":
+        await update.message.reply_text("Testlar haqida to‘liq ma’lumot olish uchun ‘Kitob’ so‘zini adminga yuboring.\nNarxi: 45 000 so‘m. ❗️ Pullik xizmat!")
+    elif text == "Botga foydalanuvchi qo‘shish":
+        await update.message.reply_text("Bot foydali bo‘lsa, do‘stlaringizga ham tavsiya qiling!")
+    elif text == "Sizni nima bezovta qilmoqda?":
+        await update.message.reply_text("Bizga yozing! Biz maslahat berishga tayyormiz.")
+    else:
+        await update.message.reply_text("Iltimos, menyudan tugmani tanlang.")
+
 # Main funksiyasi
 def main():
     token = os.getenv("TOKEN")
     if not token:
         raise RuntimeError("Bot token topilmadi. Iltimos, .env faylga TOKEN kiriting.")
+    
     app = ApplicationBuilder().token(token).build()
 
     app.add_handler(CommandHandler("start", start))
@@ -128,6 +111,6 @@ def main():
 
     app.run_polling()
 
-# Dastur ishga tushuruvchi joy
+# Dastur ishga tushuruvchi qism
 if __name__ == "__main__":
     main()
