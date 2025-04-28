@@ -105,41 +105,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✅ Ishonchli diagnostika – sog‘ligingiz kafolati!"
     )
 
-# Menyudagi tugmalarni ishlovchi
-async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-
-    if text == "Tahlillar haqida":
-        await update.message.reply_text("Gormonlar ro'yxati:", reply_markup=hormone_menu)
-    elif text == "Qon topshirish qoidalari":
-        await update.message.reply_text("Qon topshirishdan oldin 8-12 soat och qolish tavsiya etiladi. Ertalab 7-10 oralig'ida.")
-    elif text == "Bioximik tahlillar":
-        await update.message.reply_text("Bioximik tahlillar: Glukoza, Kreatinin, AST, ALT, Bilirubin va boshqalar.")
-    elif text == "Klinik tahlillar":
-        await update.message.reply_text("Klinik tahlillar: Umumiy qon va siydik tahlili haqida.")
-    elif text == "IXLA va IFA farqi":
-        await update.message.reply_text("IXLA zamonaviy va aniq metod, IFA esa eskiroq texnologiya.")
-    elif text == "Biz bilan bog'lanish":
-        await update.message.reply_text(
-            "Manzil: Kosonsoy tumani, Poliklinika yonida.\n"
-            "Telefon: +998907417222\n"
-            "Instagram: @akmal.jon7222\n"
-            "Telegram: @Akmaljon_lab\n"
-            "Email: Akmaljon.19@bk.ru"
-        )
-    elif text == "Tahlil natijalari":
-        await update.message.reply_text("ID raqamingizni yuboring.")
-    elif text == "Taklif va shikoyatlar":
-        await update.message.reply_text("Taklif va shikoyatlaringizni yozib yuboring.")
-    elif text == "Kitob (testlar haqida)":
-        await update.message.reply_text("📚 Testlar haqida kitob pullik. Narxi: 45 000 so'm. @Akmaljon_lab bilan bog'laning.")
-    elif text == "Foydalanuvchi qo'shish":
-        await update.message.reply_text("✅ Botdan foydalanishga muvaffaqiyatli ro'yxatdan o'tdingiz!")
-    elif text == "Organizmda qanday o'zgarish?":
-        await update.message.reply_text("📋 Organizmdagi o‘zgarish yoki shikoyatni yozing, sizga mos tahlillar tavsiya qilamiz.")
-    else:
-        await update.message.reply_text("Iltimos, menyudan tanlang.")
-
 # Inline tugmalar ishlovchi
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
