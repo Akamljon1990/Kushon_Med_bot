@@ -1,6 +1,8 @@
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import os
+# --- Hormon ma'lumotlari lug'ati ---
+hormone_info = {}
 # hormone_part1.py
 # 1–17 gormon ma'lumotlari
 hormone_info.update({
