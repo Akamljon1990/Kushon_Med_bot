@@ -2,7 +2,7 @@ Importlar
 
 from telegram import Update, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters import os
 
-Asosiy menyu
+#Asosiy menyu
 
 main_menu_keyboard = [ ["Tahlillar haqida ma'lumot", "Qon topshirish qoidalari"], ["Bioximiya haqida", "Klinika haqida"], ["IXLA va IFA tekshiruv farqi"], ["Biz bilan bog'lanish", "Admin bilan bog'lanish"], ["Tahlil natijalarini olish", "Taklif va shikoyatlar"], ["Kitob (Analizlar haqida to‘liq ma'lumot)"], ["Botga foydalanuvchi qo‘shish", "Sizni nima bezovta qilmoqda?"] ] main_menu = ReplyKeyboardMarkup( keyboard=main_menu_keyboard, resize_keyboard=True )
 
