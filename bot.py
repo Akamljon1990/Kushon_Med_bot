@@ -191,7 +191,7 @@ hormone_info.update({
         "⚡ Belgilar: bepushtlik, jinsiy rivojlanish muammolari\n"
         "🧪 Tekshiruv: tuxumdon va moyak faoliyatini baholash\n"
         "📈 Follikulyar fazada aniqlanadi\n"
-        "
+    
 # hormone_part3.py
 # 35–50 gormon ma'lumotlari
 hormone_info.update({
