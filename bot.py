@@ -301,7 +301,7 @@ hormone_info.update({
         "🔺 Oshganda: tug‘ma adrenal giperplaziya\n"
         "⚡ Belgilar: jinsiy rivojlanish anomalilari\n"
         "🧪 Tekshiruv: adrenal buzilishlar skriningi\n"
-        "📈 Tug‘ma giperplaziyada ko‘payadi\n"
+        "📈 Tug‘ma giperplaziyada ko‘payadi\n")
         })
 
 # Asosiy menyu
