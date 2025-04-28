@@ -304,28 +304,7 @@ hormone_info.update({
         "📈 Tug‘ma giperplaziyada ko‘payadi\n")
         })
 
-# Asosiy menyu
-from telegram import Update, ReplyKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
-import os
-
-# --- Hormon ma'lumotlari lug'ati ---
-hormone_info = {
-    "TSH": (
-        "📊 Norma: 0.27–4.2 mIU/L\n"
-        "🔻 Kamaysa: gipertiroidizm (Basedow-Graves)\n"
-        "🔺 Oshganda: gipotiroidizm (Hashimoto)\n"
-        "⚡ Belgilar: sovuqqa sezuvchanlik, charchoq, vazn ortishi, depressiya\n"
-        "🧪 Tekshiruv: qalqonsimon bez faoliyati, autoimmun kasalliklar\n"
-        "📈 Homiladorlikda nazorat talab qilinadi\n"
-        "📉 Davolashda sintetik T4 bilan monitoring\n"
-        "🩺 Qoʻshimcha: FT4 va FT3 bilan birga koʻriladi"
-    ),
-    # … qolgan 49 gormon testlari shu yerda xuddi shunday formatda joylanadi …
-}
-
-# ————————————————————————————————————————
-
+# Asosiy menyu tugmalari
 def get_main_menu():
     keyboard = [
         ["Tahlillar haqida ma'lumot", "Qon topshirish qoidalari"],
@@ -338,106 +317,92 @@ def get_main_menu():
     ]
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-
+# Orqaga/Menu/Start tugmalari
 def get_back_menu_start():
-    return ReplyKeyboardMarkup([["⬅️ Orqaga", "🏠 Menu", "🚀 Start"]], resize_keyboard=True)
+    return ReplyKeyboardMarkup(
+        [["⬅️ Orqaga", "🏠 Menu", "🚀 Start"]],
+        resize_keyboard=True
+    )
 
-
+# Tahlillar guruhlari
 def get_analysis_menu():
     keyboard = [
         ["Gormonlar", "TORCH Paneli"],
-        ["Onkomarkerlar", "Vitaminlar va Anemiya"],
-        ["Kardiomarkerlar", "Koagulyatsiya markerlari"],
-        ["Suyak metabolizmi", "Jigar fibrozi"],
-        ["Buyrak funksiyasi", "Immunoglobulinlar"],
-        ["Autoimmun panel", "Yuqumli kasalliklar"],
-        ["Allergenlar", "Dori vositalarini nazorati"],
-        ["Umumiy qon tahlillari", "Siydik tahlillari"],
-        ["⬅️ Orqaga", "🏠 Menu", "🚀 Start"],
+        # ... boshqa guruhlar ...
+        ["⬅️ Orqaga", "🏠 Menu"]
     ]
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-
+# Gormonlar ro'yxati
 def get_hormone_menu():
     keys = list(hormone_info.keys())
     keyboard = [keys[i:i+3] for i in range(0, len(keys), 3)]
     keyboard.append(["⬅️ Orqaga", "🏠 Menu"])
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-
-# /start komandasi\
-    async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-   
-        await update.message.reply_text(
+# /start komandasi
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
         "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
-        "🔬 Zamonaviy IXLA texnologiyasi asosida:\n"
-        "- Gormonlar\n- TORCH Paneli\n- Onkomarkerlar\n- Bioximik tahlillar\n- Umumiy qon va siydik tahlillari\n\n"
-        "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
-        "📞 +998 90 741 72 22\n"
-        "📸 Instagram: @akmal.jon7222",
+        "🔬 Biz zamonaviy IXLA texnologiyasi bilan tahlillarni taqdim etamiz.\n"
+        "Manzil va kontaktlar uchun pastdagi menyudan tanlang.",
         reply_markup=get_main_menu()
     )
 
-
-# Tugma bosilishlarini boshqarish
+# Tugma bosilishlari uchun handler
 async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
+    # Asosiy guruhlar
     if text == "Tahlillar haqida ma'lumot":
         await update.message.reply_text(
             "Quyidagi tahlil guruhlaridan birini tanlang:",
             reply_markup=get_analysis_menu()
         )
 
+    # Gormonlar bo'limi
     elif text == "Gormonlar":
         await update.message.reply_text(
             "Quyidagi gormon testlaridan birini tanlang:",
             reply_markup=get_hormone_menu()
         )
 
+    # Ma'lumot beringan gormon nomi
     elif text in hormone_info:
         await update.message.reply_text(
             hormone_info[text],
             reply_markup=get_back_menu_start()
         )
 
-    elif text == "Biz bilan bog'lanish":
-        await update.message.reply_text(
-            "📍 Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
-            "📞 +998 90 741 72 22\n"
-            "📸 Instagram: @akmal.jon7222\n"
-            "📧 Email: akmaljon.1990k.ru@gmail.com",
-            reply_markup=get_back_menu_start()
-        )
-
-    # ... boshqa tugmalar ...
-
+    # Orqaga yoki Menu
     elif text in ["⬅️ Orqaga", "🏠 Menu"]:
         await update.message.reply_text(
             "Asosiy menyuga qaytdingiz.",
             reply_markup=get_main_menu()
         )
 
+    # Start
     elif text == "🚀 Start":
         await start(update, context)
 
+    # Boshqa tugmalar...
     else:
         await update.message.reply_text(
-            "Iltimos, menyudan tegishli tugmani tanlang.",
+            "Iltimos, menyudan tanlang.",
             reply_markup=get_back_menu_start()
         )
 
-
+# Bot ishga tushirish
 def main():
     token = os.getenv("TOKEN")
     if not token:
-        raise RuntimeError("Bot token topilmadi. Iltimos, .env faylga TOKEN kiriting.")
+        raise RuntimeError("Bot token topilmadi. .env faylga TOKEN kiriting.")
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_menu_selection))
     app.run_polling()
 
-
 if __name__ == "__main__":
     main()
+
 
