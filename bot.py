@@ -302,7 +302,7 @@ hormone_info.update({
         "⚡ Belgilar: jinsiy rivojlanish anomalilari\n"
         "🧪 Tekshiruv: adrenal buzilishlar skriningi\n"
         "📈 Tug‘ma giperplaziyada ko‘payadi\n"
-        }
+        })
 
 # Asosiy menyu
 def get_main_menu():
