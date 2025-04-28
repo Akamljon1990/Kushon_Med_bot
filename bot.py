@@ -367,7 +367,8 @@ def get_hormone_menu():
 
 # /start komandasi\
     async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
+   
+        await update.message.reply_text(
         "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
         "🔬 Zamonaviy IXLA texnologiyasi asosida:\n"
         "- Gormonlar\n- TORCH Paneli\n- Onkomarkerlar\n- Bioximik tahlillar\n- Umumiy qon va siydik tahlillari\n\n"
