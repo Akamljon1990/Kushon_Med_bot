@@ -4,12 +4,13 @@ import os
 
 # Asosiy menyu
 main_menu_keyboard = [
-    ["Tahlillar haqida", "Qon topshirish qoidalari"],
-    ["Bioximik tahlillar", "Klinik tahlillar"],
-    ["IXLA va IFA farqi", "Biz bilan bog'lanish"],
-    ["Tahlil natijalari", "Taklif va shikoyatlar"],
-    ["Kitob (testlar haqida)", "Foydalanuvchi qo'shish"],
-    ["Organizmda qanday o'zgarish?"]
+    ["Tahlillar haqida ma'lumot", "Qon topshirish qoidalari"],
+    ["Bioximiya haqida", "Klinika haqida"],
+    ["IXLA va IFA tekshuruv farqi"],
+    ["Biz bilan bog'lanish", "Admin bilan bog'lanish"],
+    ["Tahlil natijalarini olish", "Taklif va shikoyatlar"],
+    ["Kitob (Analizlar haqida to‘liq ma'lumot)"],
+    ["Botga foydalanuvchi qo‘shish", "Sizni nima bezovta qilyapti"]
 ]
 main_menu = ReplyKeyboardMarkup(main_menu_keyboard, resize_keyboard=True)
 
