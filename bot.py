@@ -3,6 +3,8 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Cal
 import os
 
 # Asosiy menyu
+from telegram import ReplyKeyboardMarkup
+
 main_menu_keyboard = [
     ["Tahlillar haqida ma'lumot", "Qon topshirish qoidalari"],
     ["Bioximiya haqida", "Klinika haqida"],
@@ -12,7 +14,11 @@ main_menu_keyboard = [
     ["Kitob (Analizlar haqida to‘liq ma'lumot)"],
     ["Botga foydalanuvchi qo‘shish", "Sizni nima bezovta qilyapti"]
 ]
-main_menu = ReplyKeyboardMarkup(main_menu_keyboard, resize_keyboard=True)
+
+main_menu = ReplyKeyboardMarkup(
+    keyboard=main_menu_keyboard,
+    resize_keyboard=True
+)
 
 # Gormonlar ro'yxati
 hormone_buttons = [
