@@ -15,6 +15,14 @@ def get_main_menu():
     ]
     return ReplyKeyboardMarkup(keyboard=main_menu_keyboard, resize_keyboard=True)
 
+# Orqaga, Menu va Start tugmalari
+
+def get_back_menu_start():
+    navigation_keyboard = [
+        ["⬅️ Orqaga", "🏠 Menu", "🚀 Start"]
+    ]
+    return ReplyKeyboardMarkup(keyboard=navigation_keyboard, resize_keyboard=True)
+
 # Tahlillar haqida guruhlar
 def get_analysis_menu():
     analysis_keyboard = [
@@ -26,7 +34,7 @@ def get_analysis_menu():
         ["Autoimmun panel", "Yuqumli kasalliklar"],
         ["Allergenlar", "Dori vositalarini nazorati"],
         ["Umumiy qon tahlillari", "Siydik tahlillari"],
-        ["⬅️ Orqaga"]
+        ["⬅️ Orqaga", "🏠 Menu", "🚀 Start"]
     ]
     return ReplyKeyboardMarkup(keyboard=analysis_keyboard, resize_keyboard=True)
 
@@ -49,38 +57,40 @@ async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TY
 
     if text == "Tahlillar haqida ma'lumot":
         await update.message.reply_text("Quyidagi tahlil guruhlaridan birini tanlang:", reply_markup=get_analysis_menu())
-    elif text == "⬅️ Orqaga":
+    elif text == "⬅️ Orqaga" or text == "🏠 Menu":
         await update.message.reply_text("Asosiy menyuga qaytdingiz.", reply_markup=get_main_menu())
+    elif text == "🚀 Start":
+        await start(update, context)
     elif text == "Qon topshirish qoidalari":
-        await update.message.reply_text("Qon topshirish uchun:\n- 8-12 soat och qoling.\n- Ertalab 7:00-10:00 oralig'ida topshirish tavsiya etiladi.\n- Suv ichish mumkin.")
+        await update.message.reply_text("Qon topshirish uchun:\n- 8-12 soat och qoling.\n- Ertalab 7:00-10:00 oralig'ida topshirish tavsiya etiladi.\n- Suv ichish mumkin.", reply_markup=get_back_menu_start())
     elif text == "Bioximiya haqida":
-        await update.message.reply_text("Bioximiya tahlillariga: jigar, buyrak, yurak va boshqa organ ko'rsatkichlari kiradi.")
+        await update.message.reply_text("Bioximiya tahlillariga: jigar, buyrak, yurak va boshqa organ ko'rsatkichlari kiradi.", reply_markup=get_back_menu_start())
     elif text == "Klinika haqida":
-        await update.message.reply_text("Klinik tahlillar: umumiy qon analizi, siydik analizi va boshqa testlar.")
+        await update.message.reply_text("Klinik tahlillar: umumiy qon analizi, siydik analizi va boshqa testlar.", reply_markup=get_back_menu_start())
     elif text == "IXLA va IFA tekshiruv farqi":
-        await update.message.reply_text("IXLA zamonaviy, tezkor va aniq texnologiya. IFA esa eski metod.")
+        await update.message.reply_text("IXLA zamonaviy, tezkor va aniq texnologiya. IFA esa eski metod.", reply_markup=get_back_menu_start())
     elif text == "Biz bilan bog'lanish":
-        await update.message.reply_text("\ud83d\udccd Kosonsoy tumani, Kattalar poliklinikasi yonida\n\ud83d\udcde +998 90 741 72 22\n\ud83d\udcf8 Instagram: @akmal.jon7222\n✉️ Email: akmaljon.1990k.ru@gmail.com")
+        await update.message.reply_text("\ud83d\udccd Kosonsoy tumani, Kattalar poliklinikasi yonida\n\ud83d\udcde +998 90 741 72 22\n\ud83d\udcf8 Instagram: @akmal.jon7222\n✉️ Email: akmaljon.1990k.ru@gmail.com", reply_markup=get_back_menu_start())
     elif text == "Admin bilan bog'lanish":
-        await update.message.reply_text("Admin bilan bog'lanish: @akmaljon_lab")
+        await update.message.reply_text("Admin bilan bog'lanish: @akmaljon_lab", reply_markup=get_back_menu_start())
     elif text == "Tahlil natijalarini olish":
-        await update.message.reply_text("Tahlil natijasi olish uchun ID raqamingizni kiriting.")
+        await update.message.reply_text("Tahlil natijasi olish uchun ID raqamingizni kiriting.", reply_markup=get_back_menu_start())
     elif text == "Taklif va shikoyatlar":
-        await update.message.reply_text("Taklif yoki shikoyatlaringizni yozing, adminga yuboriladi.")
+        await update.message.reply_text("Taklif yoki shikoyatlaringizni yozing, adminga yuboriladi.", reply_markup=get_back_menu_start())
     elif text == "Kitob (Analizlar haqida to‘liq ma'lumot)":
-        await update.message.reply_text("Kitob haqida ma'lumot olish uchun 'Kitob' deb yozing.\nNarxi: 45 000 so'm.")
+        await update.message.reply_text("Kitob haqida ma'lumot olish uchun 'Kitob' deb yozing.\nNarxi: 45 000 so'm.", reply_markup=get_back_menu_start())
     elif text == "Botga foydalanuvchi qo‘shish":
-        await update.message.reply_text("Do'stlaringizga ham botni tavsiya qiling!")
+        await update.message.reply_text("Botni do‘stlaringizga tavsiya qiling!", reply_markup=get_back_menu_start())
     elif text == "Sizni nima bezovta qilmoqda?":
-        await update.message.reply_text("Bezovta qilayotgan narsani yozing. Maslahat beramiz.")
+        await update.message.reply_text("Bezovta qilayotgan narsani yozing. Maslahat beramiz.", reply_markup=get_back_menu_start())
     else:
-        await update.message.reply_text("Iltimos, menyudan kerakli tugmani tanlang.")
+        await update.message.reply_text("Iltimos, menyudan kerakli tugmani tanlang.", reply_markup=get_back_menu_start())
 
 # Main funksiya
 def main():
     token = os.getenv("TOKEN")
     if not token:
-        raise RuntimeError("Bot token topilmadi. .env faylga TOKEN kiriting.")
+        raise RuntimeError("Bot token topilmadi. Iltimos, .env faylga TOKEN kiriting.")
 
     app = ApplicationBuilder().token(token).build()
     app.add_handler(CommandHandler("start", start))
