@@ -81,6 +81,7 @@ hormone_info.update({
         "⚡ Belgilar: o‘sma alomatlari\n"
         "🧪 Tekshiruv: qalqonsimon bez monitoringi\n"
         "📈 Tiroglobulin antikorlari ham baholanishi kerak\n"
+    ),
 # hormone_part2.py
 # 18–34 gormon ma'lumotlari
 hormone_info.update({
@@ -191,7 +192,7 @@ hormone_info.update({
         "⚡ Belgilar: bepushtlik, jinsiy rivojlanish muammolari\n"
         "🧪 Tekshiruv: tuxumdon va moyak faoliyatini baholash\n"
         "📈 Follikulyar fazada aniqlanadi\n"
-    
+    ),
 # hormone_part3.py
 # 35–50 gormon ma'lumotlari
 hormone_info.update({
