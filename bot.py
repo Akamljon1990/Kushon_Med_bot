@@ -79,10 +79,23 @@ hormone_info = {
 }
 
 # /start komandasi
+from telegram import Update
+from telegram.ext import ContextTypes
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Assalomu alaykum! Kushon Medical Servis laboratoriyasi botiga xush kelibsiz!\n\nMenyudan kerakli bo'limni tanlang:",
-        reply_markup=main_menu
+        "🧬 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
+        "🔬 Biz zamonaviy IXLA texnologiyasi asosida:\n"
+        "– Gormonlar\n"
+        "– TORCH Paneli\n"
+        "– Onkomarkerlar\n"
+        "– Bioximik tahlillar\n"
+        "– Umumiy qon va siydik tahlillarini sifatli va tezkor amalga oshiramiz.\n\n"
+        "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
+        "📞 Telefon: +998 90 741 72 22\n"
+        "📸 Instagram: @akmal.jon7222\n\n"
+        "✅ Biz uchun daromatdan ko‘ra **to‘g‘ri natija va bemor ishonchi muhim**!\n\n"
+        "✅ Ishonchli diagnostika – sog‘ligingiz kafolati!"
     )
 
 # Menyudagi tugmalarni ishlovchi
