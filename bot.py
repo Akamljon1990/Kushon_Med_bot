@@ -328,6 +328,13 @@ def get_back_menu_start():
 def get_analysis_menu():
     keyboard = [
         ["Gormonlar", "TORCH Paneli"],
+        ["Onkomarkerlar", "Vitaminlar va Anemiya"],
+        ["Kardiomarkerlar", "Koagulyatsiya markerlari"],
+        ["Suyak metabolizmi", "Jigar fibrozi"],
+        ["Buyrak funksiyasi", "Immunoglobulinlar"],
+        ["Autoimmun panel", "Yuqumli kasalliklar"],
+        ["Allergenlar", "Dori vositalarini nazorati"],
+        ["Umumiy qon tahlillari", "Siydik tahlillari"],
         # ... boshqa guruhlar ...
         ["⬅️ Orqaga", "🏠 Menu"]
     ]
