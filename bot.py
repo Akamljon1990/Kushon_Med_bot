@@ -365,7 +365,8 @@ def get_hormone_menu():
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
 
-# /start komandasi\async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# /start komandasi\
+    async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
         "🔬 Zamonaviy IXLA texnologiyasi asosida:\n"
