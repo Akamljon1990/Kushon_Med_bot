@@ -1,6 +1,208 @@
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import os
+torch_info.update({
+    "Toxoplasma IgM": (
+        "📊 Norma: Manfiy (<0.9 IU/mL)\n"
+        "🔻 Kam: Yangi infeksiya aniqlanmagan\n"
+        "🔺 Ijobiy: Yaqinda Toxoplasma infeksiya\n"
+        "⚡ Belgilar: Ko‘pincha simptomsiz, limfadenopatiya\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikda yoki immuniteti pasayganlarda\n"
+        "📈 Ijobiy: Homila uchun xavf\n"
+        "📉 Manfiy: Faol infeksiya yo‘q\n"
+        "🩺 Qo‘shimcha: IgG va avidity testi bilan tasdiqlash"
+    ),
+    "Toxoplasma IgG": (
+        "📊 Norma: Manfiy (<0.9 IU/mL)\n"
+        "🔻 Kamaysa: Immunitet shakllanmagan\n"
+        "🔺 Ijobiy: O‘tkazilgan Toxoplasma infeksiyasi\n"
+        "⚡ Belgilar: Ko‘pincha simptomsiz\n"
+        "🧪 Qachon tekshiriladi: Homiladorlik va immunosupressiya holatida\n"
+        "📈 Ijobiy: Immunitet mavjud\n"
+        "📉 Manfiy: Infeksiya xavfi mavjud\n"
+        "🩺 Qo‘shimcha: IgM bilan birga baholash zarur"
+    ),
+    "Rubella IgM": (
+        "📊 Norma: Manfiy (<0.8 IU/mL)\n"
+        "🔻 Kamaysa: Aktiv infeksiya yo‘q\n"
+        "🔺 Ijobiy: Yaqinda Rubella infeksiya\n"
+        "⚡ Belgilar: To‘sh, isitma, limfadenit\n"
+        "🧪 Qachon tekshiriladi: Homiladorlik boshida\n"
+        "📈 Ijobiy: Homila uchun xavf\n"
+        "📉 Manfiy: Aktiv infeksiya yo‘q\n"
+        "🩺 Qo‘shimcha: IgG avidity testi bilan aniqlik kiritiladi"
+    ),
+    "Rubella IgG": (
+        "📊 Norma: >10–15 IU/mL (immunitet mavjud)\n"
+        "🔻 Kamaysa: Immunitet yo‘qligi\n"
+        "🔺 Ijobiy: O‘tkazilgan infeksiya yoki emlash\n"
+        "⚡ Belgilar: Ko‘pincha simptomsiz\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikdan oldin yoki boshida\n"
+        "📈 Yuqori: Immunitet mavjud\n"
+        "📉 Past: Emga ehtiyoj\n"
+        "🩺 Qo‘shimcha: IgM bilan birgalikda baholash"
+    ),
+    "Herpes simplex virus (HSV) 1/2 IgM": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Faol infeksiya yo‘q\n"
+        "🔺 Ijobiy: Yaqinda herpes infeksiya\n"
+        "⚡ Belgilar: Pufakchali toshmalar, og‘riq\n"
+        "🧪 Qachon tekshiriladi: Simptomlar yoki homiladorlikda\n"
+        "📈 Ijobiy: Aktiv infeksiya mavjud\n"
+        "📉 Manfiy: Hozircha xavf yo‘q\n"
+        "🩺 Qo‘shimcha: IgG testi bilan birga aniqlash"
+    ),
+    "Herpes simplex virus (HSV) 1/2 IgG": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Immunitet yo‘q\n"
+        "🔺 Ijobiy: Oldin infeksiya o‘tkazilgan\n"
+        "⚡ Belgilar: Ko‘pincha simptomsiz\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikda yoki simptomlarda\n"
+        "📈 Immunitet mavjud bo‘lsa xavf kamayadi\n"
+        "📉 Immunitet bo‘lmasa, infektsiya xavfi yuqori\n"
+        "🩺 Qo‘shimcha: IgM testi bilan baholash"
+    ),
+    "CMV (Cytomegalovirus) IgM": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Faol infeksiya yo‘q\n"
+        "🔺 Ijobiy: Yaqinda CMV infeksiyasi\n"
+        "⚡ Belgilar: Odatda simptomsiz, lekin immunosupressiya holatida og‘ir kechadi\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikda yoki immunitet pasayganda\n"
+        "📈 Ijobiy: Homila uchun xavf\n"
+        "📉 Manfiy: Faol infeksiya yo‘q\n"
+        "🩺 Qo‘shimcha: IgG va avidity testi bilan aniqlik kiritiladi"
+    ),
+    "CMV (Cytomegalovirus) IgG": (
+        "📊 Norma: Ijobiy yoki manfiy\n"
+        "🔻 Kamaysa: Immunitet yo‘qligi\n"
+        "🔺 Ijobiy: Oldin CMV infeksiyasi\n"
+        "⚡ Belgilar: Ko‘pincha simptomsiz\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikda yoki donorlikda\n"
+        "📈 Yuqori bo‘lsa, homilani himoya qiladi\n"
+        "📉 Past bo‘lsa, infeksiya xavfi mavjud\n"
+        "🩺 Qo‘shimcha: IgM bilan birga tekshirish zarur"
+    ),
+    "HSV avidity testi": (
+        "📊 Norma: Yuqori avidity\n"
+        "🔻 Kamaysa: Yangi infeksiya\n"
+        "🔺 Yuqori: Eski infeksiya\n"
+        "⚡ Belgilar: Herpes infeksiyasini farqlash uchun kerak\n"
+        "🧪 Qachon tekshiriladi: IgM ijobiy chiqqanda\n"
+        "📈 Yuqori avidity: xavf kam\n"
+        "📉 Past avidity: yaqinda infeksiya\n"
+        "🩺 Qo‘shimcha: IgG darajasi bilan solishtiriladi"
+    ),
+    "CMV avidity testi": (
+        "📊 Norma: Yuqori avidity\n"
+        "🔻 Kamaysa: Yangi infeksiya\n"
+        "🔺 Yuqori: Eski infeksiya\n"
+        "⚡ Belgilar: CMV infeksiyani aniqlik kiritish uchun\n"
+        "🧪 Qachon tekshiriladi: IgM ijobiy bo‘lsa\n"
+        "📈 Yuqori avidity: xavf yo‘q\n"
+        "📉 Past avidity: yangi infeksiya xavfi\n"
+        "🩺 Qo‘shimcha: IgG testi bilan birga baholash"
+    ),
+    "Rubella avidity testi": (
+        "📊 Norma: Yuqori avidity\n"
+        "🔻 Kamaysa: Yangi infeksiya\n"
+        "🔺 Yuqori: Eski infeksiya\n"
+        "⚡ Belgilar: Rubella infeksiyasini aniqlik kiritish uchun\n"
+        "🧪 Qachon tekshiriladi: IgM ijobiy chiqqanda\n"
+        "📈 Yuqori avidity: xavf kam\n"
+        "📉 Past avidity: yaqinda infeksiya\n"
+        "🩺 Qo‘shimcha: IgG testi bilan solishtiriladi"
+    ),
+    "Toxoplasma avidity testi": (
+        "📊 Norma: Yuqori avidity\n"
+        "🔻 Kamaysa: Yangi infeksiya\n"
+        "🔺 Yuqori: Eski infeksiya\n"
+        "⚡ Belgilar: Toxoplasma infeksiyasini aniqlik kiritish\n"
+        "🧪 Qachon tekshiriladi: IgM ijobiy bo‘lsa\n"
+        "📈 Yuqori avidity: xavf kam\n"
+        "📉 Past avidity: yangi infeksiya xavfi\n"
+        "🩺 Qo‘shimcha: IgG darajasi bilan birgalikda baholash"
+    ),
+    "Parvovirus B19 IgM": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Aktiv infeksiya yo‘q\n"
+        "🔺 Ijobiy: Yaqinda Parvovirus infeksiya\n"
+        "⚡ Belgilar: Issiqlik, toshmalar, anemiya\n"
+        "🧪 Qachon tekshiriladi: Homiladorlik va immunitet pasayganda\n"
+        "📈 Ijobiy: Homilada xavf\n"
+        "📉 Manfiy: Faol infeksiya yo‘q\n"
+        "🩺 Qo‘shimcha: IgG testi bilan birga baholash"
+    ),
+    "Parvovirus B19 IgG": (
+        "📊 Norma: Ijobiy yoki manfiy\n"
+        "🔻 Kamaysa: Immunitet yo‘qligi\n"
+        "🔺 Ijobiy: O‘tkazilgan infeksiya\n"
+        "⚡ Belgilar: Simptomsiz yoki yengil grippga o‘xshash simptomlar\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikdan oldin yoki simptomlarda\n"
+        "📈 Yuqori: Immunitet mavjud\n"
+        "📉 Past: Infeksiya xavfi\n"
+        "🩺 Qo‘shimcha: IgM testi bilan aniqlash zarur"
+    ),
+    "Varicella-Zoster Virus (VZV) IgM": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Faol infeksiya yo‘q\n"
+        "🔺 Ijobiy: Varicella (suvchechak) infeksiyasi\n"
+        "⚡ Belgilar: To‘sh, qizil toshmalar, isitma\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikda yoki simptomlar mavjud bo‘lsa\n"
+        "📈 Aktiv infeksiya aniqlansa, homilada xavf mavjud\n"
+        "📉 Faol infeksiya yo‘q bo‘lsa xavf kamayadi\n"
+        "🩺 Qo‘shimcha: IgG darajasi bilan baholash"
+    ),
+    "Varicella-Zoster Virus (VZV) IgG": (
+        "📊 Norma: Ijobiy yoki manfiy\n"
+        "🔻 Kamaysa: Immunitet yo‘q\n"
+        "🔺 Ijobiy: Oldin suvchechak infeksiyasi\n"
+        "⚡ Belgilar: Odatda simptomsiz\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikdan oldin\n"
+        "📈 Yuqori: Immunitet mavjud\n"
+        "📉 Past: Infeksiya xavfi mavjud\n"
+        "🩺 Qo‘shimcha: IgM bilan aniqlash"
+    ),
+    "Syphilis (VDRL)": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Infeksiya yo‘q\n"
+        "🔺 Ijobiy: Sifilis infeksiya\n"
+        "⚡ Belgilar: Chanqoq, toshmalar, o‘zgarishlar\n"
+        "🧪 Qachon tekshiriladi: Homiladorlik tekshiruvlarida\n"
+        "📈 Ijobiy: Homila xavfi mavjud\n"
+        "📉 Manfiy: Xavf yo‘q\n"
+        "🩺 Qo‘shimcha: TPHA testi bilan tasdiqlash"
+    ),
+    "Syphilis (TPHA)": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Aktiv infeksiya yo‘q\n"
+        "🔺 Ijobiy: O‘tkazilgan yoki faol sifilis\n"
+        "⚡ Belgilar: Odatda simptomsiz yoki klassik sifilis simptomlari\n"
+        "🧪 Qachon tekshiriladi: VDRL ijobiy bo‘lsa\n"
+        "📈 Yuqori natija: O‘tkazilgan infeksiya belgisi\n"
+        "📉 Manfiy natija: Infeksiya yo‘q\n"
+        "🩺 Qo‘shimcha: Klinik tekshiruv bilan baholash"
+    ),
+    "Hepatit B (HBsAg)": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Infeksiya yo‘qligi\n"
+        "🔺 Ijobiy: Faol Hepatit B infeksiya\n"
+        "⚡ Belgilar: Odatda simptomsiz yoki jigar disfunksiyasi\n"
+        "🧪 Qachon tekshiriladi: Homiladorlikda yoki donor tekshiruvlarda\n"
+        "📈 Ijobiy: Jigar monitoringi kerak\n"
+        "📉 Manfiy: Faol infeksiya yo‘q\n"
+        "🩺 Qo‘shimcha: HBeAg va HBV DNK testi bilan aniqlik kiritiladi"
+    ),
+    "Hepatit B (HBcAb)": (
+        "📊 Norma: Manfiy\n"
+        "🔻 Kamaysa: Hech qachon infeksiya bo‘lmagan\n"
+        "🔺 Ijobiy: O‘tkazilgan infeksiya\n"
+        "⚡ Belgilar: Odatda simptomsiz\n"
+        "🧪 Qachon tekshiriladi: HBsAg bilan birga\n"
+        "📈 Yuqori natija: O‘tkazilgan infeksiya\n"
+        "📉 Manfiy natija: Immunitet yo‘q\n"
+        "🩺 Qo‘shimcha: HBsAg va HBsAb bilan birgalikda baholash"
+    )
+})
 # --- Hormon ma'lumotlari lug'ati ---
 hormone_info = {}
 # hormone_part1.py
