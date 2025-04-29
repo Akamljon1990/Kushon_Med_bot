@@ -16,6 +16,186 @@ hormone_info.update({
         "📉 Davolashda sintetik T4 bilan monitoring\n"
         "🩺 Qo‘shimcha: FT4 va FT3 bilan birga ko‘riladi"
     ),
+    "Cortisol": (
+        "\ud83d\udcca Norma: 6–23 µg/dL ertalabda\n"
+        "\ud83d\udd3b Kamaysa: Addison kasalligi\n"
+        "\ud83d\udd3a Oshganda: Kuushing sindromi\n"
+        "\u26a1\ufe0f Belgilar: semirish, glyukoza oshishi, gipertenziya\n"
+        "\ud83e\uddea Tekshiruv: stress javobi va adrenal holat\n"
+        "\ud83d\udcc8 Stress holatida oshadi\n"
+        "\ud83d\udcc9 Kamaysa: charchoq, zaiflik\n"
+        "\ud83e\uddfc Qo\u2018shimcha: ACTH bilan birga baholash"
+    ),
+    "ACTH": (
+        "\ud83d\udcca Norma: 10–60 pg/mL\n"
+        "\ud83d\udd3b Kamaysa: sekondar Addison\n"
+        "\ud83d\udd3a Oshganda: ACTH o\u2018smalari\n"
+        "\u26a1\ufe0f Belgilar: qorinning kattalashuvi, gipertoniya\n"
+        "\ud83e\uddea Tekshiruv: adrenal va hipofiz funksiyasi\n"
+        "\ud83d\udcc8 Oshishi: o\u2018sma va Kuushing kasalligida\n"
+        "\ud83d\udcc9 Kamayishi: gipoadrenalizmda\n"
+        "\ud83e\uddfc Qo\u2018shimcha: kortizol bilan birga baholash"
+    ),
+    "Aldosterone": (
+        "\ud83d\udcca Norma: 4–31 ng/dL (yotgan), 7–30 ng/dL (tik turganda)\n"
+        "\ud83d\udd3b Kamaysa: Addison\n"
+        "\ud83d\udd3a Oshganda: birlamchi aldosteronizm\n"
+        "\u26a1\ufe0f Belgilar: gipertoniya, hipokalemiya\n"
+        "\ud83e\uddea Tekshiruv: renin-aldosteron nisbati\n"
+        "\ud83d\udcc8 Oshishi: hipertoniya\n"
+        "\ud83d\udcc9 Kamayishi: adrenal yetishmovchilik\n"
+        "\ud83e\uddfc Qo\u2018shimcha: plazma renin faolligi"
+    ),
+    "Renin": (
+        "\ud83d\udcca Norma: 0.5–4.0 ng/mL/h\n"
+        "\ud83d\udd3b Kamaysa: giperaldozteronizm\n"
+        "\ud83d\udd3a Oshganda: renovaskulyar gipertenziya\n"
+        "\u26a1\ufe0f Belgilar: qon bosimi o\u2018zgarishi\n"
+        "\ud83e\uddea Tekshiruv: aldosteron/renin nisbati\n"
+        "\ud83d\udcc8 Oshishi: renovaskulyar kasallik\n"
+        "\ud83d\udcc9 Kamayishi: aldosteron ko\u2018pligi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: natriy va kaliy bilan kuzatiladi"
+    ),
+    "DHEA-S": (
+        "\ud83d\udcca Norma: erkak 80–560, ayol 35–430 µg/dL\n"
+        "\ud83d\udd3b Kamaysa: adrenal yetishmovchilik\n"
+        "\ud83d\udd3a Oshganda: adrenogenital sindrom, PCOS\n"
+        "\u26a1\ufe0f Belgilar: tuklanish, akne\n"
+        "\ud83e\uddea Tekshiruv: adrenal androgen\n"
+        "\ud83d\udcc8 Balog\u2018atgacha oshadi\n"
+        "\ud83d\udcc9 Yetishmovchilikda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: kortizol bilan birga"
+    ),
+    "Testosterone Total": (
+        "\ud83d\udcca Norma: erkak 300–1000, ayol 15–70 ng/dL\n"
+        "\ud83d\udd3b Kamaysa: hipogonadizm\n"
+        "\ud83d\udd3a Oshganda: PCOS, o\u2018smalar\n"
+        "\u26a1\ufe0f Belgilar: jinsiy faollik pasayishi\n"
+        "\ud83e\uddea Tekshiruv: reproduktiv salomatlik\n"
+        "\ud83d\udcc8 Erkaklarda mushak massasini kamayishi\n"
+        "\ud83d\udcc9 Ayollarda tuklanish\n"
+        "\ud83e\uddfc Qo\u2018shimcha: SHBG bilan"
+    ),
+    "Testosterone Free": (
+        "\ud83d\udcca Norma: erkaklar 5–20 ng/dL\n"
+        "\ud83d\udd3b Kamaysa: gipogonadizm\n"
+        "\ud83d\udd3a Oshganda: androgen ko\u2018payishi\n"
+        "\u26a1\ufe0f Belgilar: jinsiy quvvat pasayishi\n"
+        "\ud83e\uddea Tekshiruv: erkin testosteronni aniqlash\n"
+        "\ud83d\udcc8 SHBG past bo\u2018lsa oshadi\n"
+        "\ud83d\udcc9 Yetishmovchilikda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: umumiy testosteron bilan"
+    ),
+    "Insulin": (
+        "\ud83d\udcca Norma: 2.6–24.9 µIU/mL\n"
+        "\ud83d\udd3b Kamaysa: tip 1 diabet\n"
+        "\ud83d\udd3a Oshganda: insulinoma, semizlik\n"
+        "\u26a1\ufe0f Belgilar: giperglikemiya\n"
+        "\ud83e\uddea Tekshiruv: glyukoza metabolizmi\n"
+        "\ud83d\udcc8 Metabolik sindromda oshadi\n"
+        "\ud83d\udcc9 Diabetda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: C-peptid bilan baholash"
+    ),
+    "C-peptid": (
+        "\ud83d\udcca Norma: 0.5–2.0 ng/mL\n"
+        "\ud83d\udd3b Kamaysa: insulin yetishmovchiligi\n"
+        "\ud83d\udd3a Oshganda: insulinoma\n"
+        "\u26a1\ufe0f Belgilar: gipoglikemiya\n"
+        "\ud83e\uddea Tekshiruv: endogen insulin sekretsiyasi\n"
+        "\ud83d\udcc8 Tip 2 diabetda oshadi\n"
+        "\ud83d\udcc9 Tip 1 diabetda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: glyukoza bilan"
+    ),
+    "HCG": (
+        "\ud83d\udcca Norma: <5 mIU/mL (homiladorlik yo\u2018qligida)\n"
+        "\ud83d\udd3b Kamaysa: rivojlanish kechikishi\n"
+        "\ud83d\udd3a Oshganda: homiladorlik, ko\u2018p homilalik\n"
+        "\u26a1\ufe0f Belgilar: homiladorlik tasdiqlash\n"
+        "\ud83e\uddea Tekshiruv: homiladorlik monitoringi\n"
+        "\ud83d\udcc8 Ektopik homiladorlikda past\n"
+        "\ud83d\udcc9 Normal homiladorlikda oshadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: beta-HCG bilan"
+    ),
+    "Beta-HCG": (
+        "\ud83d\udcca Norma: haftasiga qarab oshadi\n"
+        "\ud83d\udd3b Kamaysa: rivojlanish buzilishi\n"
+        "\ud83d\udd3a Oshganda: ko\u2018p homilalik\n"
+        "\u26a1\ufe0f Belgilar: homiladorlik monitoringi\n"
+        "\ud83e\uddea Tekshiruv: homiladorlikni baholash\n"
+        "\ud83d\udcc8 Ijobiy rivojlanishda 2 baravar oshadi\n"
+        "\ud83d\udcc9 Ektopik homiladorlikda sekin oshadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: USM bilan"
+    ),
+    "Anti-Mullerian Hormone (AMH)": (
+        "\ud83d\udcca Norma: 1–10 ng/mL\n"
+        "\ud83d\udd3b Kamaysa: tuxumdon rezerv kamayishi\n"
+        "\ud83d\udd3a Oshganda: PCOS\n"
+        "\u26a1\ufe0f Belgilar: bepushtlik\n"
+        "\ud83e\uddea Tekshiruv: tuxumdon imkoniyatini baholash\n"
+        "\ud83d\udcc8 Yosh bilan pasayadi\n"
+        "\ud83d\udcc9 Polikistozda oshadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: FSH bilan kuzatiladi"
+    ),
+    "IGF-1": (
+        "\ud83d\udcca Norma: yoshga qarab\n"
+        "\ud83d\udd3b Kamaysa: o\u2018sish pasayishi\n"
+        "\ud83d\udd3a Oshganda: gigantizm, akromegaliya\n"
+        "\u26a1\ufe0f Belgilar: anormal o\u2018sish\n"
+        "\ud83e\uddea Tekshiruv: GH bilan kuzatiladi\n"
+        "\ud83d\udcc8 Gigantizmda oshadi\n"
+        "\ud83d\udcc9 O\u2018sish sekinlashganda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: IGFBP-3 bilan baholash"
+    ),
+    "Growth Hormone (GH)": (
+        "\ud83d\udcca Norma: erkak 0.01–0.97, ayol 0.01–3.61 ng/mL\n"
+        "\ud83d\udd3b Kamaysa: o\u2018sish gormon yetishmovchiligi\n"
+        "\ud83d\udd3a Oshganda: gigantizm\n"
+        "\u26a1\ufe0f Belgilar: o\u2018sish anomaliyalari\n"
+        "\ud83e\uddea Tekshiruv: bolalarda o\u2018sish baholash\n"
+        "\ud83d\udcc8 Akromegaliyada oshadi\n"
+        "\ud83d\udcc9 Bolalarda pasayganda\n"
+        "\ud83e\uddfc Qo\u2018shimcha: IGF-1 bilan"
+    ),
+    "Gastrin": (
+        "\ud83d\udcca Norma: 0–100 pg/mL\n"
+        "\ud83d\udd3b Kamaysa: achitqi ishlab chiqarilmaydi\n"
+        "\ud83d\udd3a Oshganda: Zollinger-Ellison sindromi\n"
+        "\u26a1\ufe0f Belgilar: oshqozon og\u2018ri\u011fi\n"
+        "\ud83e\uddea Tekshiruv: oshqozon sekretsiyasi\n"
+        "\ud83d\udcc8 Oshqozon o\u2018smalarida oshadi\n"
+        "\ud83d\udcc9 Atrofik gastritda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: pepsinogen bilan"
+    ),
+    "VIP (Vasoactive Intestinal Peptide)": (
+        "\ud83d\udcca Norma: <70 pg/mL\n"
+        "\ud83d\udd3b Kamaysa: oshqozon-ichak pasayishi\n"
+        "\ud83d\udd3a Oshganda: VIPoma\n"
+        "\u26a1\ufe0f Belgilar: diareya, suvsizlanish\n"
+        "\ud83e\uddea Tekshiruv: oshqozon-ichak tizimi\n"
+        "\ud83d\udcc8 O\u2018smalarda juda ko\u2018p oshadi\n"
+        "\ud83d\udcc9 Normalda juda kam\n"
+        "\ud83e\uddfc Qo\u2018shimcha: elektrolitlar bilan"
+    ),
+    "Glucagon": (
+        "\ud83d\udcca Norma: 50–200 pg/mL\n"
+        "\ud83d\udd3b Kamaysa: giperinsulinemiya\n"
+        "\ud83d\udd3a Oshganda: glucagonoma\n"
+        "\u26a1\ufe0f Belgilar: giperglikemiya\n"
+        "\ud83e\uddea Tekshiruv: alfa hujayralar\n"
+        "\ud83d\udcc8 O\u2018smalarda oshadi\n"
+        "\ud83d\udcc9 Insulinda kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: insulin bilan kuzatiladi"
+    ),
+    "Erythropoietin": (
+        "\ud83d\udcca Norma: 4–24 mIU/mL\n"
+        "\ud83d\udd3b Kamaysa: surunkali buyrak yetishmovchiligi\n"
+        "\ud83d\udd3a Oshganda: gipoksemiya\n"
+        "\u26a1\ufe0f Belgilar: eritrotsitoz\n"
+        "\ud83e\uddea Tekshiruv: qizil qon hujayra hosil bo\u2018lishi\n"
+        "\ud83d\udcc8 Gipoksiyada oshadi\n"
+        "\ud83d\udcc9 Buyrak kasalligida kamayadi\n"
+        "\ud83e\uddfc Qo\u2018shimcha: gematokrit bilan"
+    ),
     "Free T4": (
         "📊 Norma: 0.93–1.7 ng/dL\n"
         "🔻 Kamaysa: qalqonsimon bez yetishmovchiligi\n"
