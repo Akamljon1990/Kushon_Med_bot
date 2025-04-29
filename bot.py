@@ -1,7 +1,10 @@
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import os
-torch_info.update({
+
+
+
+torch_info= {
     "Toxoplasma IgM": (
         "📊 Norma: Manfiy (<0.9 IU/mL)\n"
         "🔻 Kam: Yangi infeksiya aniqlanmagan\n"
@@ -202,7 +205,7 @@ torch_info.update({
         "📉 Manfiy natija: Immunitet yo‘q\n"
         "🩺 Qo‘shimcha: HBsAg va HBsAb bilan birgalikda baholash"
     )
-})
+}
 # --- Hormon ma'lumotlari lug'ati ---
 hormone_info = {}
 # hormone_part1.py
