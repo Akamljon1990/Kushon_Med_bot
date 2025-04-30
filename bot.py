@@ -1,16 +1,16 @@
 from telegram import Update, ReplyKeyboardMarkup from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters import os
 
---- Spamga qarshi sozlamalar ---
+#--- Spamga qarshi sozlamalar ---
 
 spam_keywords = [ "@JetonVPNbot", "VPN", "бесплатно", "пробный период", "открыть VPN", "start ->", "YouTube 🚀", "Instagram ⚡", "t.me/JetonVPNbot" ]
 
 def is_spam(text: str) -> bool: return any(keyword.lower() in text.lower() for keyword in spam_keywords)
 
---- Testlar uchun ma'lumotlar ---
+#--- Testlar uchun ma'lumotlar ---
 
 hormone_info = {"TSH": "📊 Norma: 0.27–4.2 mIU/L\n..."} torch_info = {"Toxoplasma IgM": "📊 Norma: <0.9 IU/mL\n..."} oncomarker_info = {"AFP": "📊 Norma: <10 ng/mL\n..."} cardiomarker_info = {"Troponin I": "📊 Norma: <0.04 ng/mL\n..."} biochemistry_info = {"Glucose": "📊 Norma: 3.9–5.8 mmol/L\n..."} hematology_info = {"Hemoglobin": "📊 Norma: erkaklar 130–170 g/L\n..."} urine_info = {"Protein": "📊 Norma: Manfiy\n..."} vitamin_info = {"Vitamin D": "📊 Norma: 30–100 ng/mL\n..."} autoimmune_info = {"ANA": "📊 Norma: Manfiy\n..."} immunoglobulin_info = {"IgG": "📊 Norma: 700–1600 mg/dL\n..."} infectious_info = {"HCV IgG": "📊 Norma: Manfiy\n..."} drug_info = {"Phenobarbital": "📊 Norma: 10–40 µg/mL\n..."} allergy_info = {"Total IgE": "📊 Norma: <100 IU/mL\n..."} coagulation_info = {"PT": "📊 Norma: 11–13.5 sek\n..."} bone_info = {"Calcium": "📊 Norma: 2.1–2.6 mmol/L\n..."} liver_info = {"FibroTest": "📊 Norma: <0.3\n..."} kidney_info = {"Creatinine": "📊 Norma: erkaklar 62–106 µmol/L\n..."}
 
---- Klaviatura funksiyalari ---
+#--- Klaviatura funksiyalari ---
 
 def get_main_menu(): keyboard = [ ["📋 Tahlillar", "📞 Admin bilan bog‘lanish"], ["ℹ️ Biz haqimizda", "📊 Tahlil natijalari"], ["✍️ Taklif va shikoyatlar", "📚 Kitob haqida"], ["🚀 Start"] ] return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
@@ -20,11 +20,11 @@ def get_back_menu(): return ReplyKeyboardMarkup([["⬅️ Orqaga", "🏠 Menu"]]
 
 def get_test_buttons(info_dict): keys = list(info_dict.keys()) keyboard = [keys[i:i+2] for i in range(0, len(keys), 2)] keyboard.append(["⬅️ Orqaga", "🏠 Menu"]) return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
---- Start komandasi ---
+#--- Start komandasi ---
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE): await update.message.reply_text( "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n" "🔬 IXLA va zamonaviy texnologiyalar asosida: Gormonlar, TORCH, Onkomarkerlar, Kardiomarkerlar, va yana 200+ test\n\n" "📍 Manzil: Kosonsoy tumani\n📞 +998 90 741 72 22\n📸 Instagram: @akmal.jon7222", reply_markup=get_main_menu() )
 
---- Menyu tanlovlari ---
+#--- Menyu tanlovlari ---
 
 async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE): text = update.message.text
 
