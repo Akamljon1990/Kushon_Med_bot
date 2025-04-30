@@ -46,19 +46,18 @@ def get_test_buttons(info_dict):
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
 # --- Start komandasi ---
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
-        "🔬 IXLA va zamonaviy texnologiyalar asosida:
-        - Gormonlar
-        - TORCH
-        - Onkomarkerlar
-        - Kardiomarkerlar
-        - Umumiy qon va boshqa 200+ tahlil turini bajarish imkoniyati mavjud.\n\n"
-        "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
-        "📞 Telefon: +998 90 741 72 22\n"
-        "📸 Instagram: @akmal.jon7222",
-        reply_markup=get_main_menu()
+await update.message.reply_text(
+    "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
+    "🔬 IXLA va zamonaviy texnologiyalar asosida:\n"
+    "- Gormonlar\n"
+    "- TORCH\n"
+    "- Onkomarkerlar\n"
+    "- Kardiomarkerlar\n"
+    "- Umumiy qon va boshqa 200+ tahlil turini bajarish imkoniyati mavjud.\n\n"
+    "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
+    "📞 Telefon: +998 90 741 72 22\n"
+    "📸 Instagram: @akmal.jon7222",
+    reply_markup=get_main_menu()
     )
 
 # --- Menyu tanlovlari ---
