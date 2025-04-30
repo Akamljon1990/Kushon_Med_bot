@@ -1,153 +1,124 @@
-from telegram import Update, ReplyKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
-import os
+from telegram import Update, ReplyKeyboardMarkup from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters import os
 
-# --- SPAM tekshiruvi ---
-spam_keywords = [
-    "@JetonVPNbot", "VPN", "бесплатно", "пробный период", "открыть VPN",
-    "start ->", "YouTube 🚀", "Instagram ⚡", "t.me/JetonVPNbot"
-]
+--- Spamga qarshi sozlamalar ---
 
-def is_spam(text: str) -> bool:
-    return any(keyword.lower() in text.lower() for keyword in spam_keywords)
+spam_keywords = [ "@JetonVPNbot", "VPN", "бесплатно", "пробный период", "открыть VPN", "start ->", "YouTube 🚀", "Instagram ⚡", "t.me/JetonVPNbot" ]
 
-# --- Tahlil ma’lumotlari (17 guruh) ---
-test_info = {
-    "Gormonlar": {
-        "TSH": "📊 Norma: 0.27–4.2 mIU/L\n🔻 Kamaysa: gipertiroidizm\n🔺 Oshganda: gipotiroidizm"
-    },
-    "TORCH Paneli": {
-        "Toxoplasma IgM": "📊 Norma: <0.9 IU/mL\n🔺 Yangi infeksiya belgisi"
-    },
-    "Onkomarkerlar": {
-        "CEA": "📊 Yo‘g‘on ichak, o‘pka, ko‘krak o‘smasi aniqlashda ishlatiladi"
-    },
-    "Kardiomarkerlar": {
-        "Troponin I": "📊 Yurak infarktini aniqlash uchun asosiy marker"
-    },
-    "Umumiy qon tahlili": {
-        "Hb (Gemoglobin)": "📊 Erkaklar: 130–160 g/L, Ayollar: 120–140 g/L"
-    },
-    "Siydik tahlili": {
-        "Proteinuriya": "📊 Siydikda oqsil ko‘rsatkichi buyrak kasalligidan darak"
-    },
-    "Biokimyo": {
-        "ALT": "📊 Jigar hujayra shikastlanishini ko‘rsatadi"
-    },
-    "Vitaminlar": {
-        "Vitamin D": "📊 30–100 ng/mL – yetarli daraja"
-    },
-    "Autoimmun panel": {
-        "ANA": "📊 Sistematik qizil volchanka va boshqa autoimmun kasalliklarda"
-    },
-    "Immunoglobulinlar": {
-        "IgG": "📊 Surunkali infeksiya yoki immunitet holatini ko‘rsatadi"
-    },
-    "Koagulyatsiya markerlari": {
-        "PT (Prothrombin Time)": "📊 Qon ivish vaqtini baholaydi"
-    },
-    "Yuqumli kasalliklar": {
-        "HBsAg": "📊 Gepatit B virusining mavjudligini bildiradi"
-    },
-    "Allergenlar": {
-        "Total IgE": "📊 Allergik reaksiyalarni baholashda ishlatiladi"
-    },
-    "Dori nazorati": {
-        "Digoxin": "📊 Yurak dorisi darajasini monitoring qilish"
-    },
-    "Suyak metabolizmi": {
-        "Osteokalsin": "📊 Suyak shakllanishi markeri"
-    },
-    "Jigar fibrozi": {
-        "FibroTest": "📊 Jigar shikastlanishi darajasini baholaydi"
-    },
-    "Buyrak funksiyasi": {
-        "Kreatinin": "📊 Buyrak faoliyatini baholovchi asosiy marker"
-    }
-}
+def is_spam(text: str) -> bool: return any(keyword.lower() in text.lower() for keyword in spam_keywords)
 
-# --- Klaviatura ---
-def get_main_menu():
-    return ReplyKeyboardMarkup([
-        ["📋 Tahlillar haqida", "📊 Tahlil natijalari"],
-        ["ℹ️ Biz haqimizda", "❓ Nima bezovta qilmoqda?"],
-        ["📚 Tahlillar kitobi", "🚀 Botni ulashing"],
-        ["⬅️ Orqaga", "🏠 Bosh menyu"]
-    ], resize_keyboard=True)
+--- Testlar uchun ma'lumotlar ---
 
-def get_analysis_menu():
-    keyboard = [[guruh] for guruh in test_info.keys()]
-    keyboard.append(["⬅️ Orqaga", "🏠 Bosh menyu"])
-    return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
+hormone_info = {"TSH": "📊 Norma: 0.27–4.2 mIU/L\n..."} torch_info = {"Toxoplasma IgM": "📊 Norma: <0.9 IU/mL\n..."} oncomarker_info = {"AFP": "📊 Norma: <10 ng/mL\n..."} cardiomarker_info = {"Troponin I": "📊 Norma: <0.04 ng/mL\n..."} biochemistry_info = {"Glucose": "📊 Norma: 3.9–5.8 mmol/L\n..."} hematology_info = {"Hemoglobin": "📊 Norma: erkaklar 130–170 g/L\n..."} urine_info = {"Protein": "📊 Norma: Manfiy\n..."} vitamin_info = {"Vitamin D": "📊 Norma: 30–100 ng/mL\n..."} autoimmune_info = {"ANA": "📊 Norma: Manfiy\n..."} immunoglobulin_info = {"IgG": "📊 Norma: 700–1600 mg/dL\n..."} infectious_info = {"HCV IgG": "📊 Norma: Manfiy\n..."} drug_info = {"Phenobarbital": "📊 Norma: 10–40 µg/mL\n..."} allergy_info = {"Total IgE": "📊 Norma: <100 IU/mL\n..."} coagulation_info = {"PT": "📊 Norma: 11–13.5 sek\n..."} bone_info = {"Calcium": "📊 Norma: 2.1–2.6 mmol/L\n..."} liver_info = {"FibroTest": "📊 Norma: <0.3\n..."} kidney_info = {"Creatinine": "📊 Norma: erkaklar 62–106 µmol/L\n..."}
 
-def get_test_buttons(guruh_nomi):
-    keys = list(test_info[guruh_nomi].keys())
-    keyboard = [keys[i:i+2] for i in range(0, len(keys), 2)]
-    keyboard.append(["⬅️ Orqaga", "🏠 Bosh menyu"])
-    return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
+--- Klaviatura funksiyalari ---
 
-# --- /start komandasi ---
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🧪 Assalomu alaykum!\n"
-        "Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
-        "🔬 IXLA texnologiyasi asosida 200+ testlar\n"
-        "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida\n"
-        "📞 +998 90 741 72 22\n"
-        "📸 Instagram: @akmal.jon7222",
-        reply_markup=get_main_menu()
-    )
+def get_main_menu(): keyboard = [ ["📋 Tahlillar", "📞 Admin bilan bog‘lanish"], ["ℹ️ Biz haqimizda", "📊 Tahlil natijalari"], ["✍️ Taklif va shikoyatlar", "📚 Kitob haqida"], ["🚀 Start"] ] return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-# --- Menyu tanlovlari ---
-async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
+def get_analysis_menu(): keyboard = [ ["🧪 Gormonlar", "🧫 TORCH"], ["💉 Onkomarkerlar", "❤️ Kardiomarkerlar"], ["🩸 Umumiy qon", "🚽 Siydik tahlili"], ["🧬 Autoimmun", "🧷 Immunoglobulinlar"], ["💊 Vitaminlar", "🧪 Biokimyo"], ["🦴 Suyak metabolizmi", "🧪 Koagulyatsiya"], ["🦠 Yuqumli kasalliklar", "📌 Dori nazorati"], ["⬅️ Orqaga", "🏠 Menu"] ] return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-    # Spam filtr
-    if is_spam(text):
-        try:
-            await update.message.delete()
-        except Exception as e:
-            print(f"Spam o‘chirishda xato: {e}")
-        return
+def get_back_menu(): return ReplyKeyboardMarkup([["⬅️ Orqaga", "🏠 Menu"]], resize_keyboard=True)
 
-    # Menyular
-    if text == "📋 Tahlillar haqida":
-        await update.message.reply_text("Quyidagi tahlil guruhlaridan birini tanlang:", reply_markup=get_analysis_menu())
-    elif text in test_info:
-        await update.message.reply_text(f"{text} testlari:", reply_markup=get_test_buttons(text))
-    elif any(text in guruh for guruh in test_info.values()):
-        for guruh in test_info.values():
-            if text in guruh:
-                await update.message.reply_text(guruh[text], reply_markup=get_back_menu())
-                break
-    elif text == "📊 Tahlil natijalari":
-        await update.message.reply_text("Tahlil natijalarini olish uchun ID raqamingizni kiriting.", reply_markup=get_back_menu())
-    elif text == "ℹ️ Biz haqimizda":
-        await update.message.reply_text("Kushon Medical Servis – 15 yillik tajriba, zamonaviy analizatorlar.", reply_markup=get_back_menu())
-    elif text == "❓ Nima bezovta qilmoqda?":
-        await update.message.reply_text("Bezovta qilayotgan alomatlaringizni yozing. Maslahat beramiz.", reply_markup=get_back_menu())
-    elif text == "📚 Tahlillar kitobi":
-        await update.message.reply_text("Tahlillar haqida to‘liq kitob (PDF): 45 000 so‘m. Admin bilan bog‘laning.", reply_markup=get_back_menu())
-    elif text == "🚀 Botni ulashing":
-        await update.message.reply_text("Do‘stlaringizga ham ushbu botni tavsiya qiling!", reply_markup=get_back_menu())
-    elif text in ["⬅️ Orqaga", "🏠 Bosh menyu"]:
-        await update.message.reply_text("Bosh menyuga qaytdingiz.", reply_markup=get_main_menu())
-    else:
-        await update.message.reply_text("Iltimos, menyudan biror tugmani tanlang.", reply_markup=get_main_menu())
+def get_test_buttons(info_dict): keys = list(info_dict.keys()) keyboard = [keys[i:i+2] for i in range(0, len(keys), 2)] keyboard.append(["⬅️ Orqaga", "🏠 Menu"]) return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-def get_back_menu():
-    return ReplyKeyboardMarkup([["⬅️ Orqaga", "🏠 Bosh menyu"]], resize_keyboard=True)
+--- Start komandasi ---
 
-# --- Main ---
-def main():
-    token = os.getenv("TOKEN")
-    if not token:
-        raise RuntimeError("Bot token topilmadi. Iltimos .env faylga TOKEN yozing.")
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE): await update.message.reply_text( "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n" "🔬 IXLA va zamonaviy texnologiyalar asosida: Gormonlar, TORCH, Onkomarkerlar, Kardiomarkerlar, va yana 200+ test\n\n" "📍 Manzil: Kosonsoy tumani\n📞 +998 90 741 72 22\n📸 Instagram: @akmal.jon7222", reply_markup=get_main_menu() )
 
-    app = ApplicationBuilder().token(token).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_menu_selection))
-    app.run_polling()
+--- Menyu tanlovlari ---
 
-if __name__ == "__main__":
-    main()
+async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE): text = update.message.text
+
+if is_spam(text):
+    try:
+        await update.message.delete()
+    except Exception as e:
+        print(f"Spam o'chirishda xatolik: {e}")
+    return
+
+if text == "📋 Tahlillar":
+    await update.message.reply_text("Tahlillar guruhini tanlang:", reply_markup=get_analysis_menu())
+elif text == "🧪 Gormonlar":
+    await update.message.reply_text("Gormon testlarini tanlang:", reply_markup=get_test_buttons(hormone_info))
+elif text == "🧫 TORCH":
+    await update.message.reply_text("TORCH testlarini tanlang:", reply_markup=get_test_buttons(torch_info))
+elif text == "💉 Onkomarkerlar":
+    await update.message.reply_text("Onkomarker testlarini tanlang:", reply_markup=get_test_buttons(oncomarker_info))
+elif text == "❤️ Kardiomarkerlar":
+    await update.message.reply_text("Kardiomarker testlarini tanlang:", reply_markup=get_test_buttons(cardiomarker_info))
+elif text == "🧪 Biokimyo":
+    await update.message.reply_text("Biokimyoviy testlar:", reply_markup=get_test_buttons(biochemistry_info))
+elif text == "🩸 Umumiy qon":
+    await update.message.reply_text("Umumiy qon testlari:", reply_markup=get_test_buttons(hematology_info))
+elif text == "🚽 Siydik tahlili":
+    await update.message.reply_text("Siydik tahlili testlari:", reply_markup=get_test_buttons(urine_info))
+elif text == "💊 Vitaminlar":
+    await update.message.reply_text("Vitamin testlarini tanlang:", reply_markup=get_test_buttons(vitamin_info))
+elif text == "🧬 Autoimmun":
+    await update.message.reply_text("Autoimmun testlari:", reply_markup=get_test_buttons(autoimmune_info))
+elif text == "🧷 Immunoglobulinlar":
+    await update.message.reply_text("Immunoglobulin testlari:", reply_markup=get_test_buttons(immunoglobulin_info))
+elif text == "🦠 Yuqumli kasalliklar":
+    await update.message.reply_text("Infeksiyalarni tanlang:", reply_markup=get_test_buttons(infectious_info))
+elif text == "📌 Dori nazorati":
+    await update.message.reply_text("Dori monitoringi:", reply_markup=get_test_buttons(drug_info))
+elif text == "🧪 Koagulyatsiya":
+    await update.message.reply_text("Koagulyatsiya testlari:", reply_markup=get_test_buttons(coagulation_info))
+elif text == "🦴 Suyak metabolizmi":
+    await update.message.reply_text("Suyak almashinuvi testlari:", reply_markup=get_test_buttons(bone_info))
+elif text == "🧪 Jigar fibrozi":
+    await update.message.reply_text("Jigar testlari:", reply_markup=get_test_buttons(liver_info))
+elif text == "Buyrak funksiyasi":
+    await update.message.reply_text("Buyrak testlari:", reply_markup=get_test_buttons(kidney_info))
+elif text in hormone_info:
+    await update.message.reply_text(hormone_info[text], reply_markup=get_back_menu())
+elif text in torch_info:
+    await update.message.reply_text(torch_info[text], reply_markup=get_back_menu())
+elif text in oncomarker_info:
+    await update.message.reply_text(oncomarker_info[text], reply_markup=get_back_menu())
+elif text in cardiomarker_info:
+    await update.message.reply_text(cardiomarker_info[text], reply_markup=get_back_menu())
+elif text in biochemistry_info:
+    await update.message.reply_text(biochemistry_info[text], reply_markup=get_back_menu())
+elif text in hematology_info:
+    await update.message.reply_text(hematology_info[text], reply_markup=get_back_menu())
+elif text in urine_info:
+    await update.message.reply_text(urine_info[text], reply_markup=get_back_menu())
+elif text in vitamin_info:
+    await update.message.reply_text(vitamin_info[text], reply_markup=get_back_menu())
+elif text in autoimmune_info:
+    await update.message.reply_text(autoimmune_info[text], reply_markup=get_back_menu())
+elif text in immunoglobulin_info:
+    await update.message.reply_text(immunoglobulin_info[text], reply_markup=get_back_menu())
+elif text in infectious_info:
+    await update.message.reply_text(infectious_info[text], reply_markup=get_back_menu())
+elif text in drug_info:
+    await update.message.reply_text(drug_info[text], reply_markup=get_back_menu())
+elif text in coagulation_info:
+    await update.message.reply_text(coagulation_info[text], reply_markup=get_back_menu())
+elif text in bone_info:
+    await update.message.reply_text(bone_info[text], reply_markup=get_back_menu())
+elif text in liver_info:
+    await update.message.reply_text(liver_info[text], reply_markup=get_back_menu())
+elif text in kidney_info:
+    await update.message.reply_text(kidney_info[text], reply_markup=get_back_menu())
+elif text == "📞 Admin bilan bog‘lanish":
+    await update.message.reply_text("Admin: @akmaljon_lab", reply_markup=get_back_menu())
+elif text in ["⬅️ Orqaga", "🏠 Menu"]:
+    await update.message.reply_text("Asosiy menyuga qaytdingiz.", reply_markup=get_main_menu())
+elif text == "🚀 Start":
+    await start(update, context)
+else:
+    await update.message.reply_text("Iltimos, menyudan tanlang.", reply_markup=get_main_menu())
+
+--- Main ---
+
+def main(): token = os.getenv("TOKEN") if not token: raise RuntimeError("Bot token topilmadi. .env faylga TOKEN kiriting.")
+
+app = ApplicationBuilder().token(token).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_menu_selection))
+app.run_polling()
+
+if name == "main": main()
+
+
