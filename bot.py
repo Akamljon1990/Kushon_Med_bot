@@ -49,7 +49,7 @@ def get_test_buttons(info_dict):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!\n\n"
-        "🔬 IXLA va zamonaviy texnologiyalar asosida:
+        "🔬 IXLA va zamonaviy texnologiyalar asosida:"
         "- Gormonlar"
         "- TORCH"
         "- Onkomarkerlar"
