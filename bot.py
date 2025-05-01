@@ -4,8 +4,9 @@ import os
 
 # --- Spamga qarshi sozlamalar ---
 spam_keywords = [
-    "@JetonVPNbot", "VPN", "бесплатно", "пробный период", "открыть VPN",
-    "start ->", "YouTube 🚀", "Instagram ⚡", "t.me/JetonVPNbot"
+    "@JetonVPNbot", "@JetonVPNNbot", "VPN", "vpn.arturshi.ru",
+    "бесплатно", "пробный период", "открыть VPN", "YouTube",
+    "Instagram", "7 дней", "SmartTV", "Подключайся", "стабильный интернет"
 ]
 
 def is_spam(text: str) -> bool:
@@ -71,15 +72,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=get_main_menu()
     )
 
-# --- Menyu tanlovlari ---
-async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# --- Xabarlar bilan ishlash ---
+async def handle_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
     if is_spam(text):
         try:
             await update.message.delete()
         except Exception as e:
-            print(f"Spam o'chirishda xatolik: {e}")
+            print(f"Spamni o'chirishda xatolik: {e}")
         return
 
     if text == "📋 Tahlillar":
