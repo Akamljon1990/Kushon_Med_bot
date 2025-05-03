@@ -2,6 +2,67 @@ from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import os
 
+
+async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
+    if is_spam(text):
+        try:
+            await update.message.delete()
+        except:
+            pass
+        return
+
+    # --- Tahlillar bo‘limlari (ilgari yozilgan kod) ---
+    if text == "📋 Tahlillar":
+        await update.message.reply_text("Tahlillar guruhini tanlang:", reply_markup=get_analysis_menu())
+    # … boshqa test guruhlari va test nomlari uchun kodlar …
+
+    elif text == "⬅️ Orqaga":
+        await update.message.reply_text("Asosiy menyuga qaytdingiz.", reply_markup=get_main_menu())
+
+    # --- Yangi qo‘shimcha bo‘limlar ---
+    elif text == "Biz bilan bog‘lanish":
+        await update.message.reply_text(
+            "📞 Telefon: +998 90 741 72 22\n"
+            "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Instagram":
+        await update.message.reply_text(
+            "📸 Bizni Instagramda kuzatib boring:\n"
+            "https://instagram.com/akmal.jon7222",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Admin bilan bog‘lanish":
+        await update.message.reply_text(
+            "🔧 Xatolik yoki savollar uchun admin: @YourAdminUsername",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Tahlil natijalari":
+        await update.message.reply_text(
+            "📝 Iltimos, tahlil raqamini yuboring yoki PDF shaklida jo‘nating, natijalarni tekshirib beramiz.",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Taklif va shikoyat":
+        await update.message.reply_text(
+            "✉️ Sizning taklif va shikoyatlaringizni qabul qilamiz. Iltimos, matn yoki fayl yuboring.",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Qon topshirishga tayyorgarlik":
+        await update.message.reply_text(
+            "💉 Qon topshirishdan 8–12 soat oldin och qoling va suyuqlik ko‘p iching.\n"
+            "🛌 Dam oling va jismoniy zo‘riqishdan saqlaning.",
+            reply_markup=get_main_menu()
+        )
+    elif text == "IXLA va IFA farqi":
+        await update.message.reply_text(
+            "🔬 IXLA (ELISA) va IFA (Immunofluorescens) – immunologik testlar.\n"
+            "IXLA — rangli reaksiya, o‘qishi oson;\n"
+            "IFA — lazer mikroskopda fluoresensiya orqali aniqlash, sezgirligi yuqori.",
+            reply_markup=get_main_menu()
+        )
+    else:
+        await update.message.reply_text("Iltimos, menyudan tanlang.", reply_markup=get_main_menu())
 # --- Spamga qarshi sozlamalar ---
 spam_keywords = [
     "@JetonVPNbot", "VPN", "бесплатно", "пробный период", "открыть VPN",
