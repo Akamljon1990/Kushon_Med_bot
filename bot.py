@@ -162,7 +162,9 @@ async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TY
         await update.message.reply_text(allergy_info[text])
     elif text == "⬅️ Orqaga":
         await update.message.reply_text("Asosiy menyuga qaytdingiz.", reply_markup=get_main_menu())
-   elif text == "Biz bilan bog‘lanish":
+    
+    
+elif text == "Biz bilan bog‘lanish":
     await update.message.reply_text(
         "📞 Telefon: +998 90 741 72 22\n"
         "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida",
