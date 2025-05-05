@@ -2,25 +2,7 @@ from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import os
 
-
-async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-    if is_spam(text):
-        try:
-            await update.message.delete()
-        except:
-            pass
-        return
-
-    # --- Tahlillar bo‘limlari (ilgari yozilgan kod) ---
-    if text == "📋 Tahlillar":
-        await update.message.reply_text("Tahlillar guruhini tanlang:", reply_markup=get_analysis_menu())
-    # … boshqa test guruhlari va test nomlari uchun kodlar …
-
-   
-    else:
-        await update.message.reply_text("Iltimos, menyudan tanlang.", reply_markup=get_main_menu())
-# --- Spamga qarshi sozlamalar ---
+# --- Spam sozlamalari ---
 spam_keywords = [
     "@JetonVPNbot", "VPN", "бесплатно", "пробный период", "открыть VPN",
     "start ->", "YouTube 🚀", "Instagram ⚡", "t.me/JetonVPNbot"
@@ -29,7 +11,7 @@ spam_keywords = [
 def is_spam(text: str) -> bool:
     return any(keyword.lower() in text.lower() for keyword in spam_keywords)
 
-# --- Testlar haqida qisqacha ma'lumotlar ---
+# --- Testlar haqida ma'lumot lug'atlari ---
 hormone_info = {"TSH": "📊 Norma: 0.27–4.2 mIU/L\n🔻 Kamaysa: gipertiroidizm\n🔺 Oshganda: gipotiroidizm"}
 torch_info = {"Toxoplasma IgM": "📊 Norma: <0.9 IU/mL\n🔺 Yaqinda infeksiya"}
 oncomarker_info = {"AFP": "📊 Norma: <10 ng/mL\n🔺 Oshganda: jigar kasalliklari"}
@@ -73,14 +55,14 @@ def get_test_buttons(info_dict):
     keyboard.append(["⬅️ Orqaga"])
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
-# --- Start komandasi ---
+# --- /start komandasi ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🧪 Assalomu alaykum! Kushon Medical Servis laboratoriyasiga xush kelibsiz!",
         reply_markup=get_main_menu()
     )
 
-# --- Menyu tanlovlari ---
+# --- Xabarlarni qayta ishlash ---
 async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
     if is_spam(text):
@@ -162,47 +144,48 @@ async def handle_menu_selection(update: Update, context: ContextTypes.DEFAULT_TY
         await update.message.reply_text(allergy_info[text])
     elif text == "⬅️ Orqaga":
         await update.message.reply_text("Asosiy menyuga qaytdingiz.", reply_markup=get_main_menu())
-elif text == "Biz bilan bog‘lanish":
-    await update.message.reply_text(
-        "📞 Telefon: +998 90 741 72 22\n"
-        "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida",
-        reply_markup=get_main_menu()
-    )
-elif text == "Instagram":
-    await update.message.reply_text(
-        "📸 Instagram: https://instagram.com/akmal.jon7222",
-        reply_markup=get_main_menu()
-    )
-elif text == "Admin bilan bog‘lanish":
-    await update.message.reply_text(
-        "🔧 Admin: @YourAdminUsername",
-        reply_markup=get_main_menu()
-    )
-elif text == "Tahlil natijalari":
-    await update.message.reply_text(
-        "📝 Tahlil raqamingizni yoki PDF faylini yuboring.",
-        reply_markup=get_main_menu()
-    )
-elif text == "Taklif va shikoyat":
-    await update.message.reply_text(
-        "✉️ Taklif va shikoyatingizni yozib yuboring.",
-        reply_markup=get_main_menu()
-    )
-elif text == "Qon topshirishga tayyorgarlik":
-    await update.message.reply_text(
-        "💉 Qon topshirishdan 8–12 soat oldin och qoling va suyuqlik ko‘p iching.",
-        reply_markup=get_main_menu()
-    )
-elif text == "IXLA va IFA farqi":
-    await update.message.reply_text(
-        "🔬 IXLA va IFA — immunotestlar farqi:\nIXLA – rangli reaksiyalar,\nIFA – fluoresensiya asosida aniqlash.",
-        reply_markup=get_main_menu()
-    )
-
+    elif text == "Biz bilan bog‘lanish":
+        await update.message.reply_text(
+            "📞 Telefon: +998 90 741 72 22\n"
+            "📍 Manzil: Kosonsoy tumani, Kattalar poliklinikasi yonida",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Instagram":
+        await update.message.reply_text(
+            "📸 Instagram: https://instagram.com/akmal.jon7222",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Admin bilan bog‘lanish":
+        await update.message.reply_text(
+            "🔧 Admin: @YourAdminUsername",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Tahlil natijalari":
+        await update.message.reply_text(
+            "📝 Tahlil raqamingizni yoki PDF faylini yuboring.",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Taklif va shikoyat":
+        await update.message.reply_text(
+            "✉️ Taklif va shikoyatingizni yozib yuboring.",
+            reply_markup=get_main_menu()
+        )
+    elif text == "Qon topshirishga tayyorgarlik":
+        await update.message.reply_text(
+            "💉 Qon topshirishdan 8–12 soat oldin och qoling va suyuqlik ko‘p iching.",
+            reply_markup=get_main_menu()
+        )
+    elif text == "IXLA va IFA farqi":
+        await update.message.reply_text(
+            "🔬 IXLA va IFA — immunotestlar farqi:\n"
+            "IXLA – rangli reaksiyalar,\n"
+            "IFA – fluoresensiya asosida aniqlash.",
+            reply_markup=get_main_menu()
+        )
     else:
         await update.message.reply_text("Iltimos, menyudan tanlang.", reply_markup=get_main_menu())
 
-# --- Main funksiyasi ---
+# --- Dastur ishga tushishi ---
 def main():
     token = os.getenv("TOKEN")
     if not token:
